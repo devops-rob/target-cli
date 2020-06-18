@@ -26,7 +26,7 @@ func init() {
 	vaultUpdateCmd.PersistentFlags().StringP("cert", "c", "", "set path to a PEM-encoded client certificate on the local disk")
 	vaultUpdateCmd.PersistentFlags().StringP("key", "k", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
 	vaultUpdateCmd.PersistentFlags().StringP("format", "f", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
-	vaultCreateCmd.PersistentFlags().StringP("namespace", "N", "", "set vault namespace to use for command")
+	vaultUpdateCmd.PersistentFlags().StringP("namespace", "N", "", "set vault namespace to use for command")
 
 	vaultUpdateCmd.MarkPersistentFlagRequired(
 		"name",
