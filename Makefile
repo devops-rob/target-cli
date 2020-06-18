@@ -1,2 +1,2 @@
 build:
-	go build -o ${HOME}/Documents/binaries .
+	go build -o /usr/local/bin .

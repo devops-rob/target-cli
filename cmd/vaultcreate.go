@@ -17,7 +17,6 @@ var vaultCreateCmd = &cobra.Command{
 }
 
 func init() {
-	// vaultCmd.AddCommand(createCmd)
 
 	vaultCreateCmd.PersistentFlags().StringP("name", "n", "", "set a profile name for this context")
 	vaultCreateCmd.PersistentFlags().StringP("endpoint", "e", "", "set target endpoint details. e.g https://example-vault.com:8200")
@@ -27,6 +26,7 @@ func init() {
 	vaultCreateCmd.PersistentFlags().StringP("cert", "c", "", "set path to a PEM-encoded client certificate on the local disk")
 	vaultCreateCmd.PersistentFlags().StringP("key", "k", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
 	vaultCreateCmd.PersistentFlags().StringP("format", "f", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
+	vaultCreateCmd.PersistentFlags().StringP("namespace", "N", "", "set vault namespace to use for command")
 
 	vaultCreateCmd.MarkPersistentFlagRequired(
 		"name",
@@ -35,9 +35,4 @@ func init() {
 	vaultCreateCmd.MarkPersistentFlagRequired(
 		"endpoint",
 	)
-
-	vaultCreateCmd.MarkPersistentFlagRequired(
-		"token",
-	)
-
 }
