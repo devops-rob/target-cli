@@ -6,7 +6,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// vaultCmd represents the vault command
+var (
+	vaultname      string
+	vaultendpoint  string
+	vaulttoken     string
+	vaultcapath    string
+	vaultcacert    string
+	vaultcert      string
+	vaultkey       string
+	vaultformat    string
+	vaultnamespace string
+)
+
 var vaultCmd = &cobra.Command{
 	Use:   "vault",
 	Short: "Manage Vault context profiles ",
