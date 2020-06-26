@@ -6,6 +6,18 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	nomadname      string
+	nomadendpoint  string
+	nomadregion    string
+	nomadtoken     string
+	nomadcapath    string
+	nomadcacert    string
+	nomadcert      string
+	nomadkey       string
+	nomadnamespace string
+)
+
 var nomadCmd = &cobra.Command{
 	Use:     "nomad",
 	Short:   "Manage Nomad context profiles ",
@@ -31,7 +43,7 @@ func init() {
 	nomadCmd.AddCommand(deleteCmd)
 	nomadCmd.AddCommand(renameCmd)
 	nomadCmd.AddCommand(selectCmd)
-	// nomadCmd.AddCommand(updateCmd)
+	nomadCmd.AddCommand(nomadUpdateCmd)
 	nomadCmd.AddCommand(listCmd)
 
 }

@@ -69,6 +69,7 @@ func initConfig() {
 		// Search config in home directory with name ".target" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".target")
+		viper.WriteConfig()
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match

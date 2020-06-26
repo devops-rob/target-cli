@@ -10,24 +10,48 @@ var nomadCreateCmd = &cobra.Command{
 	Use:     "create",
 	Short:   "create command creates a context profile",
 	Long:    `create a context profile with the create command.`,
-	Example: `target vault create --name="example" --endpoint="https://example-vault.com:8200"`,
+	Example: `target nomad create --name="example" --endpoint="https://example-nomad.com:8200"`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("create called")
+		// The following code is to test out CLI behaviour
+		fmt.Printf("creating %v target profile with the following values: \n==========================================================\n", nomadname)
+
+		fmt.Printf("endpoint flag value: %v\n", nomadendpoint)
+
+		if len(nomadregion) != 0 {
+			fmt.Printf("region flag value: %v\n", nomadregion)
+		}
+		if len(nomadtoken) != 0 {
+			fmt.Printf("token flag value: %v\n", nomadtoken)
+		}
+		if len(nomadcapath) != 0 {
+			fmt.Printf("capath flag value: %v\n", nomadcapath)
+		}
+		if len(nomadcacert) != 0 {
+			fmt.Printf("cacert flag value: %v\n", nomadcacert)
+		}
+		if len(nomadcert) != 0 {
+			fmt.Printf("cert flag value: %v\n", nomadcert)
+		}
+		if len(nomadkey) != 0 {
+			fmt.Printf("key flag value: %v\n", nomadkey)
+		}
+		if len(nomadnamespace) != 0 {
+			fmt.Printf("namespace flag value: %v\n", nomadnamespace)
+		}
 	},
 }
 
 func init() {
-	// vaultCmd.AddCommand(createCmd)
 
-	nomadCreateCmd.PersistentFlags().StringP("name", "n", "", "set a profile name for this context")
-	nomadCreateCmd.PersistentFlags().StringP("endpoint", "e", "", "set target endpoint details. e.g https://example-nomad.com:4646")
-	nomadCreateCmd.PersistentFlags().StringP("region", "r", "", "set the region of the Nomad server to forward commands to")
-	nomadCreateCmd.PersistentFlags().StringP("token", "t", "", "set the  SecretID of an ACL token to use to authenticate API requests with")
-	nomadCreateCmd.PersistentFlags().StringP("capath", "p", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
-	nomadCreateCmd.PersistentFlags().StringP("cacert", "C", "", "set path to a PEM-encoded CA certificate file on the local disk")
-	nomadCreateCmd.PersistentFlags().StringP("cert", "c", "", "set path to a PEM-encoded client certificate on the local disk")
-	nomadCreateCmd.PersistentFlags().StringP("key", "k", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
-	nomadCreateCmd.PersistentFlags().StringP("namespace", "N", "", "set Nomad namespace to use for command")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadname, "name", "", "set a profile name for this context")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadendpoint, "endpoint", "", "set target endpoint details. e.g https://example-nomad.com:4646")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadregion, "region", "", "set the region of the Nomad server to forward commands to")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadtoken, "token", "", "set the  SecretID of an ACL token to use to authenticate API requests with")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadcapath, "capath", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadcacert, "cacert", "", "set path to a PEM-encoded CA certificate file on the local disk")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadcert, "cert", "", "set path to a PEM-encoded client certificate on the local disk")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
+	nomadCreateCmd.PersistentFlags().StringVar(&nomadnamespace, "namespace", "", "set Nomad namespace to use for command")
 
 	nomadCreateCmd.MarkPersistentFlagRequired(
 		"name",
