@@ -6,7 +6,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// vaultCmd represents the vault command
+var (
+	serfname     string
+	serfendpoint string
+	serftoken    string
+)
 var serfCmd = &cobra.Command{
 	Use:   "serf",
 	Short: "Manage Serf context profiles ",
