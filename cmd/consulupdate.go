@@ -13,19 +13,41 @@ var consulUpdateCmd = &cobra.Command{
 	Long:    `The update command allows you to modify an existing context.`,
 	Example: `target consul update --name="example" --endpoint="https://example2-consul.com:8500" --token="t.loejwikdjuidfhjdi"`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("update called")
+		fmt.Printf("updating %v target profile with the following values: \n==========================================================\n", consulname)
+
+		if len(consulendpoint) != 0 {
+			fmt.Printf("endpoint flag new value: %v\n", consulendpoint)
+		}
+		if len(consultoken) != 0 {
+			fmt.Printf("token flag new value: %v\n", consultoken)
+		}
+		if len(consultokenfile) != 0 {
+			fmt.Printf("tokenfile flag new value: %v\n", consultokenfile)
+		}
+		if len(consulcapath) != 0 {
+			fmt.Printf("capath flag new value: %v\n", consulcapath)
+		}
+		if len(consulcacert) != 0 {
+			fmt.Printf("cacert flag new value: %v\n", consulcacert)
+		}
+		if len(consulcert) != 0 {
+			fmt.Printf("cert flag new value: %v\n", consulcert)
+		}
+		if len(consulkey) != 0 {
+			fmt.Printf("key flag new value: %v\n", consulkey)
+		}
 	},
 }
 
 func init() {
-	consulUpdateCmd.PersistentFlags().StringP("name", "n", "", "set a profile name for this context")
-	consulUpdateCmd.PersistentFlags().StringP("endpoint", "e", "", "set target endpoint details. e.g https://example-vault.com:8200")
-	consulUpdateCmd.PersistentFlags().StringP("token", "t", "", "set consul acl token for this context")
-	consulUpdateCmd.PersistentFlags().StringP("tokenfile", "T", "", "set path to a file containing the API access token for consul")
-	consulUpdateCmd.PersistentFlags().StringP("capath", "p", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
-	consulUpdateCmd.PersistentFlags().StringP("cacert", "C", "", "set path to a PEM-encoded CA certificate file on the local disk")
-	consulUpdateCmd.PersistentFlags().StringP("cert", "c", "", "set path to a PEM-encoded client certificate on the local disk")
-	consulUpdateCmd.PersistentFlags().StringP("key", "k", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulname, "name", "", "set a profile name for this context")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulendpoint, "endpoint", "", "set target endpoint details. e.g https://example-vault.com:8200")
+	consulUpdateCmd.PersistentFlags().StringVar(&consultoken, "token", "", "set consul acl token for this context")
+	consulUpdateCmd.PersistentFlags().StringVar(&consultokenfile, "tokenfile", "", "set path to a file containing the API access token for consul")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulcapath, "capath", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulcacert, "cacert", "", "set path to a PEM-encoded CA certificate file on the local disk")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulcert, "cert", "", "set path to a PEM-encoded client certificate on the local disk")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
 
 	consulUpdateCmd.MarkPersistentFlagRequired(
 		"name",

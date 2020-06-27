@@ -6,7 +6,17 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// vaultCmd represents the vault command
+var (
+	consulname      string
+	consulendpoint  string
+	consultoken     string
+	consultokenfile string
+	consulcapath    string
+	consulcacert    string
+	consulcert      string
+	consulkey       string
+)
+
 var consulCmd = &cobra.Command{
 	Use:   "consul",
 	Short: "Manage consul context profiles ",
