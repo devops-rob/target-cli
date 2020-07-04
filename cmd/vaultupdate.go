@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
 
 	"github.com/spf13/cobra"
@@ -8,16 +9,23 @@ import (
 
 // updateCmd represents the update command
 var vaultUpdateCmd = &cobra.Command{
-	Use:     "update",
+	Use:     "update [name]",
 	Short:   "Update an existing context",
 	Long:    `The update command allows you to modify an existing context.`,
-	Example: `target vault update --name="example" --endpoint="https://example2-vault.com:8200" --token="t.loejwikdjuidfhjdi"`,
+	Example: `target vault update example --endpoint="https://example2-vault.com:8200" --token="t.loejwikdjuidfhjdi"`,
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) != 1 {
+			return errors.New("requires a name argument")
+		}
+		return nil
+	},
 	Run: func(cmd *cobra.Command, args []string) {
 		// The following code is to test out CLI behaviour
-		fmt.Printf("updating %v target profile with the following values: \n==========================================================\n", vaultname)
+		fmt.Printf("updating %v target profile with the following values: \n==========================================================\n", args[0])
 
-		fmt.Printf("endpoint flag new value: %v\n", vaultendpoint)
-
+		if len(vaultendpoint) != 0 {
+			fmt.Printf("endpoint flag new value: %v\n", vaultendpoint)
+		}
 		if len(vaultformat) != 0 {
 			fmt.Printf("format flag new value: %v\n", vaultformat)
 		}
@@ -43,7 +51,6 @@ var vaultUpdateCmd = &cobra.Command{
 }
 
 func init() {
-	vaultUpdateCmd.PersistentFlags().StringVar(&vaultname, "name", "", "set a profile name for this context")
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultendpoint, "endpoint", "", "set target endpoint details. e.g https://example-vault.com:8200")
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaulttoken, "token", "", "set vault auth token for this context")
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultcapath, "capath", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
@@ -52,9 +59,5 @@ func init() {
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultformat, "format", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultnamespace, "namespace", "", "set vault namespace to use for command")
-
-	vaultUpdateCmd.MarkPersistentFlagRequired(
-		"name",
-	)
 
 }

@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	vaultname      string
 	vaultendpoint  string
 	vaulttoken     string
 	vaultcapath    string
@@ -44,4 +43,5 @@ func init() {
 	vaultCmd.AddCommand(selectCmd)
 	vaultCmd.AddCommand(vaultUpdateCmd)
 	vaultCmd.AddCommand(listCmd)
+
 }

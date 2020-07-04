@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile string
+var cfgFile = ""
 
 var version string
 
@@ -65,11 +65,12 @@ func initConfig() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
-
-		// Search config in home directory with name ".target" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".target")
+		viper.AddConfigPath("$HOME/.target")
+		viper.SetConfigName("profiles")
+		viper.SetConfigType("hcl")
 		viper.WriteConfig()
+
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
