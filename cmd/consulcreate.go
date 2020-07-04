@@ -11,7 +11,7 @@ var consulCreateCmd = &cobra.Command{
 	Use:     "create [name]",
 	Short:   "create command creates a context profile",
 	Long:    `create a context profile with the create command.`,
-	Example: `target consul create --name="example" --endpoint="https://example-consul.com:8500" --token="s.giqoewbnmdjalkjk"`,
+	Example: `target consul create example --endpoint="https://example-consul.com:8500" --token="s.giqoewbnmdjalkjk"`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return errors.New("requires a name argument")
