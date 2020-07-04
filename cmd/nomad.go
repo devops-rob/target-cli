@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	nomadname      string
 	nomadendpoint  string
 	nomadregion    string
 	nomadtoken     string
