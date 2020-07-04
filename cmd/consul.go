@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	consulname      string
 	consulendpoint  string
 	consultoken     string
 	consultokenfile string
@@ -32,7 +31,7 @@ var consulCmd = &cobra.Command{
 	Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("vault called")
+		fmt.Println("consul called")
 	},
 }
 
