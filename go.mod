@@ -1,4 +1,4 @@
-module target
+module github.com/target-hcl/target
 
 go 1.14
 
