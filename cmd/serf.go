@@ -7,7 +7,6 @@ import (
 )
 
 var (
-	serfname     string
 	serfendpoint string
 	serftoken    string
 )
