@@ -12,26 +12,28 @@ func HomeFolder() string {
 	if runtime.GOOS == "windows" {
 		return os.Getenv("USERPROFILE")
 
-	} else {
-		return os.Getenv("HOME")
 	}
 
-	// return os.Getenv("HOME")
+	return os.Getenv("HOME")
 }
 
 // TargetHome returns the location of the target
-// folder, usually $HOME/.targer
+// folder, usually $HOME/.target
 func TargetHome() string {
-	return fmt.Sprintf("%s/.target/profiles.hcl", HomeFolder())
+	return fmt.Sprintf("%s/.target", HomeFolder())
 }
 
 // TargetHomeCreate checks for the target directory
 // and profiles.hcl file and creates if they don't exist
 func TargetHomeCreate() {
-	os.OpenFile(TargetHome(), os.O_RDONLY|os.O_CREATE, 0755)
-	// if _, err := os.Stat(TargetHome()); os.IsNotExist(err) {
-	// 	os.Mkdir(TargetHome(), 0755)
-	// }
-	//functional test
-	// fmt.Println("creating target home")
+	if _, err := os.Stat(TargetHome()); os.IsNotExist(err) {
+		os.Mkdir(TargetHome(), 0755)
+	}
+
+	f := fmt.Sprintf("%s/.target/profiles.hcl", HomeFolder())
+
+	if _, err := os.Stat(f); os.IsNotExist(err) {
+		os.Create(f)
+	}
+
 }

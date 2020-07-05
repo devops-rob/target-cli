@@ -3,6 +3,7 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"target/pkg/targetdir"
 
 	"github.com/spf13/cobra"
 
@@ -32,7 +33,6 @@ Example:
 	},
 	Args:    cobra.OnlyValidArgs,
 	Version: version,
-	// RunE:   targetdir.TargetHomeCreate(),
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -42,6 +42,7 @@ func Execute() {
 		fmt.Println(err)
 		os.Exit(1)
 	}
+	targetdir.TargetHomeCreate()
 }
 
 func init() {

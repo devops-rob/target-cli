@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"fmt"
-	"target/pkg/targetdir"
 
 	"github.com/spf13/cobra"
 )
@@ -33,7 +32,6 @@ var vaultCmd = &cobra.Command{
 	Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
-		targetdir.TargetHomeCreate()
 		fmt.Println("vault called")
 
 	},
