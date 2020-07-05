@@ -28,9 +28,10 @@ func TargetHome() string {
 // TargetHomeCreate checks for the target directory
 // and profiles.hcl file and creates if they don't exist
 func TargetHomeCreate() {
-	if _, err := os.Stat(TargetHome()); os.IsNotExist(err) {
-		os.Mkdir(TargetHome(), 0755)
-	}
+	os.OpenFile(TargetHome(), os.O_RDONLY|os.O_CREATE, 0755)
+	// if _, err := os.Stat(TargetHome()); os.IsNotExist(err) {
+	// 	os.Mkdir(TargetHome(), 0755)
+	// }
 	//functional test
-	fmt.Println("creating target home")
+	// fmt.Println("creating target home")
 }
