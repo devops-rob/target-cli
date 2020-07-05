@@ -32,6 +32,7 @@ Example:
 	},
 	Args:    cobra.OnlyValidArgs,
 	Version: version,
+	// RunE:   targetdir.TargetHomeCreate(),
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -55,6 +56,7 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)

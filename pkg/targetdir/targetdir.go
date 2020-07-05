@@ -11,9 +11,12 @@ import (
 func HomeFolder() string {
 	if runtime.GOOS == "windows" {
 		return os.Getenv("USERPROFILE")
+
+	} else {
+		return os.Getenv("HOME")
 	}
 
-	return os.Getenv("HOME")
+	// return os.Getenv("HOME")
 }
 
 // TargetHome returns the location of the target
@@ -28,4 +31,6 @@ func TargetHomeCreate() {
 	if _, err := os.Stat(TargetHome()); os.IsNotExist(err) {
 		os.Mkdir(TargetHome(), 0755)
 	}
+	//functional test
+	fmt.Println("creating target home")
 }
