@@ -13,5 +13,5 @@ Running Vault CLI commands locally will by default attempt to connect to <https:
 ### Example usage
 
 ```shell
-target vault select --name=dev
+target vault select dev
 ```
