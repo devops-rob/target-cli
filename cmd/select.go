@@ -10,8 +10,8 @@ import (
 // switchCmd represents the switch command
 var selectCmd = &cobra.Command{
 	Use:     "select [name]",
-	Short:   "select to a context",
-	Long:    `select a context to use with the select command.`,
+	Short:   "select a context profile",
+	Long:    `select a context profile to use with the select command.`,
 	Example: `target vault select example"`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {

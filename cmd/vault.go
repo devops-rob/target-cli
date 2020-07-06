@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -31,10 +29,10 @@ var vaultCmd = &cobra.Command{
 	},
 	Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("vault called")
+	// Run: func(cmd *cobra.Command, args []string) {
+	// 	// fmt.Println("vault called")
 
-	},
+	// },
 }
 
 func init() {
