@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 
+	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var vaultCreateCmd = &cobra.Command{
@@ -19,32 +20,30 @@ var vaultCreateCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		// The following code is to test out CLI behaviour
-		fmt.Printf("creating %s target profile with the following values: \n==========================================================\n", args[0])
 
-		fmt.Printf("endpoint flag value: %v\n", vaultendpoint)
+		if c.Vault[args[0]] != nil {
+			log.Fatal("profile already exists")
 
-		if len(vaultformat) != 0 {
-			fmt.Printf("format flag value: %v\n", vaultformat)
 		}
-		if len(vaulttoken) != 0 {
-			fmt.Printf("token flag value: %v\n", vaulttoken)
+		v := &Vault{
+			Endpoint:  vaultendpoint,
+			Token:     vaulttoken,
+			CaPath:    vaultcapath,
+			CaCert:    vaultcacert,
+			Cert:      vaultcert,
+			Key:       vaultkey,
+			Format:    vaultformat,
+			Namespace: vaultnamespace,
 		}
-		if len(vaultcapath) != 0 {
-			fmt.Printf("capath flag value: %v\n", vaultcapath)
-		}
-		if len(vaultcacert) != 0 {
-			fmt.Printf("cacert flag value: %v\n", vaultcacert)
-		}
-		if len(vaultcert) != 0 {
-			fmt.Printf("cert flag value: %v\n", vaultcert)
-		}
-		if len(vaultkey) != 0 {
-			fmt.Printf("key flag value: %v\n", vaultkey)
-		}
-		if len(vaultnamespace) != 0 {
-			fmt.Printf("namespace flag value: %v\n", vaultnamespace)
-		}
+
+		c.Vault[args[0]] = v
+		viper.UnmarshalKey("b", c.Vault[args[0]])
+
+		// fmt.Printf("%+v\n", c)
+		viper.Set("vault", c.Vault)
+		// fmt.Printf("%+v\n", viper.AllSettings())
+		viper.WriteConfig()
+
 	},
 }
 
