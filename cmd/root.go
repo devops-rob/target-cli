@@ -184,6 +184,9 @@ func initConfig() {
 		if c.Consul == nil {
 			c.Consul = map[string]*Consul{}
 		}
+		if c.Serf == nil {
+			c.Serf = map[string]*Serf{}
+		}
 
 	}
 
