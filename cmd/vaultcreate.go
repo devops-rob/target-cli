@@ -26,11 +26,18 @@ var vaultCreateCmd = &cobra.Command{
 
 		}
 		v := &Vault{
-			Endpoint: vaultendpoint,
-			Token:    vaulttoken,
+			Endpoint:  vaultendpoint,
+			Token:     vaulttoken,
+			CaPath:    vaultcapath,
+			CaCert:    vaultcacert,
+			Cert:      vaultcert,
+			Key:       vaultkey,
+			Format:    vaultformat,
+			Namespace: vaultnamespace,
 		}
 
 		c.Vault[args[0]] = v
+		viper.UnmarshalKey("b", c.Vault[args[0]])
 
 		// fmt.Printf("%+v\n", c)
 		viper.Set("vault", c.Vault)

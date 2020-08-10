@@ -19,23 +19,23 @@ var version string
 
 // Config struct containing different product profiles
 type Config struct {
-	Vault   map[string]*Vault     `hcl:"vault,omitempty" mapstructure:"vault"`
-	Consul  []map[string]*Consul  `hcl:"consul,omitempty" mapstructure:"consul"`
-	Nomad   []map[string]*Nomad   `hcl:"nomad,omitempty" mapstructure:"nomad"`
-	Serf    []map[string]*Serf    `hcl:"serf,omitempty" mapstructure:"serf"`
-	Default []map[string]*Default `hcl:"default,omitempty" mapstructure:"default"`
+	Vault   map[string]*Vault   `mapstructure:"vault,omitempty"`
+	Consul  map[string]*Consul  `hcl:"consul,omitempty" mapstructure:"consul"`
+	Nomad   map[string]*Nomad   `hcl:"nomad,omitempty" mapstructure:"nomad"`
+	Serf    map[string]*Serf    `hcl:"serf,omitempty" mapstructure:"serf"`
+	Default map[string]*Default `hcl:"default,omitempty" mapstructure:"default"`
 }
 
 // Vault struct with flag parameters
 type Vault struct {
-	Endpoint  string `hcl:"endpoint" mapstructure:"endpoint"`
-	Token     string `hcl:"token,omitempty" mastructure:"token"`
-	CaPath    string `hcl:"ca_path,omitempty" mapstructure:"ca_path"`
-	CaCert    string `hcl:"ca_cert,omitempty" mapstructure:"ca_cert"`
-	Cert      string `hcl:"cert,omitempty" mapstructure:"cert"`
-	Key       string `hcl:"key,omitempty" mapstructure:"key"`
-	Format    string `hcl:"format,omitempty" mapstructure:"format"`
-	Namespace string `hcl:"namespace,omitempty" mapstructure:"namespace"`
+	Endpoint  string `mapstructure:"endpoint,omitempty"`
+	Token     string `mapstructure:"token,omitempty"`
+	CaPath    string `mapstructure:"ca_path,omitempty"`
+	CaCert    string `mapstructure:"ca_cert,omitempty"`
+	Cert      string `mapstructure:"cert,omitempty"`
+	Key       string `mapstructure:"key,omitempty"`
+	Format    string `mapstructure:"format,omitempty"`
+	Namespace string `mapstructure:"namespace,omitempty"`
 }
 
 var (
