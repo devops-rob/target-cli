@@ -19,7 +19,7 @@ var version string
 
 // Config struct containing different product profiles
 type Config struct {
-	Vault   map[string]*Vault   `mapstructure:"vault,omitempty"`
+	Vault   map[string]*Vault   `hcl:"vault,omitempty" mapstructure:"vault"`
 	Consul  map[string]*Consul  `hcl:"consul,omitempty" mapstructure:"consul"`
 	Nomad   map[string]*Nomad   `hcl:"nomad,omitempty" mapstructure:"nomad"`
 	Serf    map[string]*Serf    `hcl:"serf,omitempty" mapstructure:"serf"`
@@ -44,7 +44,7 @@ var (
 
 // Consul struct with flag parameters
 type Consul struct {
-	ConsulEndopoint string `hcl:"endpoint" mapstructure:"endpoint"`
+	ConsulEndpoint  string `hcl:"endpoint" mapstructure:"endpoint"`
 	ConsulToken     string `hcl:"token,omitempty" mastructure:"token"`
 	ConsulCaPath    string `hcl:"ca_path,omiempty" mapstructure:"ca_path"`
 	ConsulCaCert    string `hcl:"ca_cert,omitempty" mapstructure:"ca_cert"`
@@ -55,7 +55,7 @@ type Consul struct {
 
 // Nomad struct with flag parameters
 type Nomad struct {
-	NomadEndopoint string `hcl:"endpoint" mapstructure:"endpoint"`
+	NomadEndpoint  string `hcl:"endpoint" mapstructure:"endpoint"`
 	NomadToken     string `hcl:"token,omitempty" mastructure:"token"`
 	NomadCaPath    string `hcl:"ca_path,omiempty" mapstructure:"ca_path"`
 	NomadCaCert    string `hcl:"ca_cert,omitempty" mapstructure:"ca_cert"`
@@ -177,6 +177,9 @@ func initConfig() {
 		viper.Unmarshal(&c, configOption)
 		if c.Vault == nil {
 			c.Vault = map[string]*Vault{}
+		}
+		if c.Nomad == nil {
+			c.Nomad = map[string]*Nomad{}
 		}
 
 	}

@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 
+	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var nomadUpdateCmd = &cobra.Command{
@@ -19,33 +20,25 @@ var nomadUpdateCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		// The following code is to test out CLI behaviour
-		fmt.Printf("updating %v target profile with the following values: \n==========================================================\n", args[0])
+		if c.Nomad[args[0]] == nil {
+			log.Fatal("profile does not exists.  Try using the create command")
 
-		if len(nomadendpoint) != 0 {
-			fmt.Printf("endpoint flag new value: %v\n", nomadendpoint)
 		}
-		if len(nomadregion) != 0 {
-			fmt.Printf("region flag new value: %v\n", nomadregion)
+		n := &Nomad{
+			NomadEndpoint:  nomadendpoint,
+			NomadToken:     nomadtoken,
+			NomadCaPath:    nomadcapath,
+			NomadCaCert:    nomadcacert,
+			NomadCert:      nomadcert,
+			NomadKey:       nomadkey,
+			NomadRegion:    nomadregion,
+			NomadNamespace: nomadnamespace,
 		}
-		if len(nomadtoken) != 0 {
-			fmt.Printf("token flag new value: %v\n", nomadtoken)
-		}
-		if len(nomadcapath) != 0 {
-			fmt.Printf("capath flag new value: %v\n", nomadcapath)
-		}
-		if len(nomadcacert) != 0 {
-			fmt.Printf("cacert flag new value: %v\n", nomadcacert)
-		}
-		if len(nomadcert) != 0 {
-			fmt.Printf("cert flag new value: %v\n", nomadcert)
-		}
-		if len(nomadkey) != 0 {
-			fmt.Printf("key flag new value: %v\n", nomadkey)
-		}
-		if len(nomadnamespace) != 0 {
-			fmt.Printf("namespace flag new value: %v\n", nomadnamespace)
-		}
+
+		c.Nomad[args[0]] = n
+
+		viper.Set("nomad", c.Nomad)
+		viper.WriteConfig()
 	},
 }
 
