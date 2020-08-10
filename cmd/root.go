@@ -181,6 +181,9 @@ func initConfig() {
 		if c.Nomad == nil {
 			c.Nomad = map[string]*Nomad{}
 		}
+		if c.Consul == nil {
+			c.Consul = map[string]*Consul{}
+		}
 
 	}
 

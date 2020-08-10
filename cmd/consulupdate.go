@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 
+	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // updateCmd represents the update command
@@ -21,29 +22,25 @@ var consulUpdateCmd = &cobra.Command{
 	},
 
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("updating %v target profile with the following values: \n==========================================================\n", args[0])
+		if c.Consul[args[0]] == nil {
+			log.Fatal("profile does not exists.  Try using the create command")
 
-		if len(consulendpoint) != 0 {
-			fmt.Printf("endpoint flag new value: %v\n", consulendpoint)
 		}
-		if len(consultoken) != 0 {
-			fmt.Printf("token flag new value: %v\n", consultoken)
+
+		C := &Consul{
+			ConsulEndpoint:  consulendpoint,
+			ConsulToken:     consultoken,
+			ConsulCaPath:    consulcapath,
+			ConsulCaCert:    consulcacert,
+			ConsulCert:      consulcert,
+			ConsulKey:       consulkey,
+			ConsulTokenFile: consultokenfile,
 		}
-		if len(consultokenfile) != 0 {
-			fmt.Printf("tokenfile flag new value: %v\n", consultokenfile)
-		}
-		if len(consulcapath) != 0 {
-			fmt.Printf("capath flag new value: %v\n", consulcapath)
-		}
-		if len(consulcacert) != 0 {
-			fmt.Printf("cacert flag new value: %v\n", consulcacert)
-		}
-		if len(consulcert) != 0 {
-			fmt.Printf("cert flag new value: %v\n", consulcert)
-		}
-		if len(consulkey) != 0 {
-			fmt.Printf("key flag new value: %v\n", consulkey)
-		}
+
+		c.Consul[args[0]] = C
+
+		viper.Set("consul", c.Consul)
+		viper.WriteConfig()
 	},
 }
 
