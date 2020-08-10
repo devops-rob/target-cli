@@ -37,11 +37,8 @@ var vaultCreateCmd = &cobra.Command{
 		}
 
 		c.Vault[args[0]] = v
-		viper.UnmarshalKey("b", c.Vault[args[0]])
 
-		// fmt.Printf("%+v\n", c)
 		viper.Set("vault", c.Vault)
-		// fmt.Printf("%+v\n", viper.AllSettings())
 		viper.WriteConfig()
 
 	},

@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"errors"
-	"fmt"
 
+	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var serfCreateCmd = &cobra.Command{
@@ -19,14 +20,18 @@ var serfCreateCmd = &cobra.Command{
 		return nil
 	},
 	Run: func(cmd *cobra.Command, args []string) {
-		// The following code is to test out CLI behaviour
-		fmt.Printf("creating %v target profile with the following values: \n==========================================================\n", args[0])
-
-		fmt.Printf("endpoint flag value: %v\n", serfendpoint)
-
-		if len(serftoken) != 0 {
-			fmt.Printf("token flag value: %v\n", serftoken)
+		if c.Serf[args[0]] != nil {
+			log.Fatal("profile already exists")
 		}
+		s := &Serf{
+			SerfEndopoint: serfendpoint,
+			SerfToken:     serftoken,
+		}
+
+		c.Serf[args[0]] = s
+
+		viper.Set("serf", c.Serf)
+		viper.WriteConfig()
 
 	},
 }
