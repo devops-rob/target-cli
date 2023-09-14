@@ -37,7 +37,7 @@ var consulCmd = &cobra.Command{
 
 func init() {
 	consulCmd.AddCommand(consulCreateCmd)
-	consulCmd.AddCommand(deleteCmd)
+	//consulCmd.AddCommand(deleteConsulCmd)
 	consulCmd.AddCommand(renameCmd)
 	consulCmd.AddCommand(selectCmd)
 	consulCmd.AddCommand(consulUpdateCmd)

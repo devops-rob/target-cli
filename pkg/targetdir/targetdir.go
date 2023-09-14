@@ -24,16 +24,21 @@ func TargetHome() string {
 }
 
 // TargetHomeCreate checks for the target directory
-// and profiles.hcl file and creates if they don't exist
+// and profiles.json file and creates if they don't exist
 func TargetHomeCreate() {
-	if _, err := os.Stat(TargetHome()); os.IsNotExist(err) {
-		os.Mkdir(TargetHome(), 0755)
+	var defaultConfig = "{\n\t\"vault\": {},\n\t\"consul\": {},\n\t\"nomad\": {}\n}"
+	targetHome := TargetHome()
+	if _, err := os.Stat(targetHome); os.IsNotExist(err) {
+		os.Mkdir(targetHome, 0755)
 	}
 
-	f := fmt.Sprintf("%s/.target/profiles.hcl", HomeFolder())
+	f := fmt.Sprintf("%s/profiles.json", targetHome)
 
 	if _, err := os.Stat(f); os.IsNotExist(err) {
-		os.Create(f)
+		// Create and write the default configuration to the file
+		err := os.WriteFile(f, []byte(defaultConfig), 0644)
+		if err != nil {
+			fmt.Printf("Error creating and writing to profiles.json: %v\n", err)
+		}
 	}
-
 }

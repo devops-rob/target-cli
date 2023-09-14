@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
@@ -40,6 +41,7 @@ var vaultCreateCmd = &cobra.Command{
 
 		viper.Set("vault", c.Vault)
 		viper.WriteConfig()
+		fmt.Printf("Created Vault profile '%s'\n", args[0])
 
 	},
 }

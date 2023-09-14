@@ -27,7 +27,7 @@ var vaultCmd = &cobra.Command{
 		"select",
 		"update",
 	},
-	Args:                  cobra.OnlyValidArgs,
+	//Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
 	// Run: func(cmd *cobra.Command, args []string) {
 	// 	// fmt.Println("vault called")
@@ -37,7 +37,7 @@ var vaultCmd = &cobra.Command{
 
 func init() {
 	vaultCmd.AddCommand(vaultCreateCmd)
-	vaultCmd.AddCommand(deleteCmd)
+	vaultCmd.AddCommand(deleteVaultCmd)
 	vaultCmd.AddCommand(renameCmd)
 	vaultCmd.AddCommand(selectCmd)
 	vaultCmd.AddCommand(vaultUpdateCmd)
