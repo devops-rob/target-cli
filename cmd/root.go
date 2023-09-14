@@ -46,7 +46,7 @@ var (
 type Consul struct {
 	ConsulEndpoint  string `json:"endpoint" mapstructure:"endpoint"`
 	ConsulToken     string `json:"token,omitempty" mastructure:"token"`
-	ConsulCaPath    string `json:"ca_path,omiempty" mapstructure:"ca_path"`
+	ConsulCaPath    string `json:"ca_path,omitempty" mapstructure:"ca_path"`
 	ConsulCaCert    string `json:"ca_cert,omitempty" mapstructure:"ca_cert"`
 	ConsulCert      string `json:"cert,omitempty" mapstructure:"cert"`
 	ConsulKey       string `json:"key,omitempty" mapstructure:"key"`
@@ -57,7 +57,7 @@ type Consul struct {
 type Nomad struct {
 	NomadEndpoint  string `json:"endpoint" mapstructure:"endpoint"`
 	NomadToken     string `json:"token,omitempty" mastructure:"token"`
-	NomadCaPath    string `json:"ca_path,omiempty" mapstructure:"ca_path"`
+	NomadCaPath    string `json:"ca_path,omitempty" mapstructure:"ca_path"`
 	NomadCaCert    string `json:"ca_cert,omitempty" mapstructure:"ca_cert"`
 	NomadCert      string `json:"cert,omitempty" mapstructure:"cert"`
 	NomadKey       string `json:"key,omitempty" mapstructure:"key"`
