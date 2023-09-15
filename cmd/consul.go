@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -30,16 +28,16 @@ var consulCmd = &cobra.Command{
 	},
 	Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("consul called")
-	},
+	//Run: func(cmd *cobra.Command, args []string) {
+	//	fmt.Println("consul called")
+	//},
 }
 
 func init() {
 	consulCmd.AddCommand(consulCreateCmd)
 	//consulCmd.AddCommand(deleteConsulCmd)
 	consulCmd.AddCommand(renameCmd)
-	consulCmd.AddCommand(selectCmd)
+	//consulCmd.AddCommand(selectCmd)
 	consulCmd.AddCommand(consulUpdateCmd)
 	consulCmd.AddCommand(listConsulCmd)
 }

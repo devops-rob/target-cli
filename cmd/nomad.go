@@ -1,8 +1,6 @@
 package cmd
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -32,16 +30,16 @@ var nomadCmd = &cobra.Command{
 	},
 	Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("nomad called")
-	},
+	//Run: func(cmd *cobra.Command, args []string) {
+	//	fmt.Println("nomad called")
+	//},
 }
 
 func init() {
 	nomadCmd.AddCommand(nomadCreateCmd)
 	//nomadCmd.AddCommand(deleteCmd)
 	nomadCmd.AddCommand(renameCmd)
-	nomadCmd.AddCommand(selectCmd)
+	//nomadCmd.AddCommand(selectCmd)
 	nomadCmd.AddCommand(nomadUpdateCmd)
 	nomadCmd.AddCommand(listNomadCmd)
 

@@ -39,7 +39,7 @@ func init() {
 	vaultCmd.AddCommand(vaultCreateCmd)
 	vaultCmd.AddCommand(deleteVaultCmd)
 	vaultCmd.AddCommand(renameCmd)
-	vaultCmd.AddCommand(selectCmd)
+	vaultCmd.AddCommand(selectVaultCmd)
 	vaultCmd.AddCommand(vaultUpdateCmd)
 	vaultCmd.AddCommand(listVaultCmd)
 
