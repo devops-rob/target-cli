@@ -12,7 +12,7 @@ var nomadCreateCmd = &cobra.Command{
 	Use:     "create [name]",
 	Short:   "create command creates a context profile",
 	Long:    `create a context profile with the create command.`,
-	Example: `target nomad create example --endpoint="https://example-nomad.com:8200"`,
+	Example: `target nomad create example --endpoint="https://example-nomad.com:4646"`,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return errors.New("requires a name argument")

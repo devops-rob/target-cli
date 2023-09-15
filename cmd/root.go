@@ -51,6 +51,7 @@ type Consul struct {
 	ConsulCert      string `json:"cert,omitempty" mapstructure:"cert"`
 	ConsulKey       string `json:"key,omitempty" mapstructure:"key"`
 	ConsulTokenFile string `json:"token_file,omitempty" mapstructure:"token_file"`
+	ConsulNamespace string `json:"namespace,omitempty" mapstructure:"namespace"`
 }
 
 // Nomad struct with flag parameters

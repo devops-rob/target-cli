@@ -47,9 +47,3 @@ var listNomadCmd = &cobra.Command{
 		}
 	},
 }
-
-func init() {
-	vaultCmd.AddCommand(listVaultCmd)
-	consulCmd.AddCommand(listConsulCmd)
-	nomadCmd.AddCommand(listNomadCmd)
-}

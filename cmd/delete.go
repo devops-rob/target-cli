@@ -82,9 +82,3 @@ var deleteNomadCmd = &cobra.Command{
 		}
 	},
 }
-
-func init() {
-	vaultCmd.AddCommand(deleteVaultCmd)
-	consulCmd.AddCommand(deleteConsulCmd)
-	nomadCmd.AddCommand(deleteNomadCmd)
-}

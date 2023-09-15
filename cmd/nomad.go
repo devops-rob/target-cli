@@ -37,9 +37,9 @@ var nomadCmd = &cobra.Command{
 
 func init() {
 	nomadCmd.AddCommand(nomadCreateCmd)
-	//nomadCmd.AddCommand(deleteCmd)
+	nomadCmd.AddCommand(deleteNomadCmd)
 	nomadCmd.AddCommand(renameCmd)
-	//nomadCmd.AddCommand(selectCmd)
+	nomadCmd.AddCommand(selectNomadCmd)
 	nomadCmd.AddCommand(nomadUpdateCmd)
 	nomadCmd.AddCommand(listNomadCmd)
 

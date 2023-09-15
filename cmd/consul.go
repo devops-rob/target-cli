@@ -12,6 +12,7 @@ var (
 	consulcacert    string
 	consulcert      string
 	consulkey       string
+	consulnamespace string
 )
 
 var consulCmd = &cobra.Command{
@@ -37,7 +38,7 @@ func init() {
 	consulCmd.AddCommand(consulCreateCmd)
 	//consulCmd.AddCommand(deleteConsulCmd)
 	consulCmd.AddCommand(renameCmd)
-	//consulCmd.AddCommand(selectCmd)
+	consulCmd.AddCommand(selectConsulCmd)
 	consulCmd.AddCommand(consulUpdateCmd)
 	consulCmd.AddCommand(listConsulCmd)
 }
