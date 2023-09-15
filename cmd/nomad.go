@@ -43,6 +43,6 @@ func init() {
 	nomadCmd.AddCommand(renameCmd)
 	nomadCmd.AddCommand(selectCmd)
 	nomadCmd.AddCommand(nomadUpdateCmd)
-	nomadCmd.AddCommand(listCmd)
+	nomadCmd.AddCommand(listNomadCmd)
 
 }

@@ -41,5 +41,5 @@ func init() {
 	consulCmd.AddCommand(renameCmd)
 	consulCmd.AddCommand(selectCmd)
 	consulCmd.AddCommand(consulUpdateCmd)
-	consulCmd.AddCommand(listCmd)
+	consulCmd.AddCommand(listConsulCmd)
 }

@@ -41,6 +41,6 @@ func init() {
 	vaultCmd.AddCommand(renameCmd)
 	vaultCmd.AddCommand(selectCmd)
 	vaultCmd.AddCommand(vaultUpdateCmd)
-	vaultCmd.AddCommand(listCmd)
+	vaultCmd.AddCommand(listVaultCmd)
 
 }
