@@ -37,9 +37,7 @@ var nomadCreateCmd = &cobra.Command{
 
 		c.Nomad[args[0]] = n
 
-		// fmt.Printf("%+v\n", c)
 		viper.Set("nomad", c.Nomad)
-		// fmt.Printf("%+v\n", viper.AllSettings())
 		viper.WriteConfig()
 
 	},

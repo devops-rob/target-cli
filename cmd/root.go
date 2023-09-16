@@ -110,6 +110,7 @@ func init() {
 	rootCmd.AddCommand(vaultCmd)
 	rootCmd.AddCommand(nomadCmd)
 	rootCmd.AddCommand(consulCmd)
+	rootCmd.AddCommand(configlCmd)
 
 }
 

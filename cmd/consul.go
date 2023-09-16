@@ -23,7 +23,6 @@ var consulCmd = &cobra.Command{
 		"create",
 		"delete",
 		"list",
-		"rename",
 		"select",
 		"update",
 	},
@@ -37,7 +36,7 @@ var consulCmd = &cobra.Command{
 func init() {
 	consulCmd.AddCommand(consulCreateCmd)
 	//consulCmd.AddCommand(deleteConsulCmd)
-	consulCmd.AddCommand(renameCmd)
+	//consulCmd.AddCommand(renameCmd)
 	consulCmd.AddCommand(selectConsulCmd)
 	consulCmd.AddCommand(consulUpdateCmd)
 	consulCmd.AddCommand(listConsulCmd)

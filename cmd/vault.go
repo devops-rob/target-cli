@@ -23,7 +23,6 @@ var vaultCmd = &cobra.Command{
 		"create",
 		"delete",
 		"list",
-		"rename",
 		"select",
 		"update",
 	},
@@ -38,7 +37,7 @@ var vaultCmd = &cobra.Command{
 func init() {
 	vaultCmd.AddCommand(vaultCreateCmd)
 	vaultCmd.AddCommand(deleteVaultCmd)
-	vaultCmd.AddCommand(renameCmd)
+	//vaultCmd.AddCommand(renameCmd)
 	vaultCmd.AddCommand(selectVaultCmd)
 	vaultCmd.AddCommand(vaultUpdateCmd)
 	vaultCmd.AddCommand(listVaultCmd)

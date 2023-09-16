@@ -41,4 +41,9 @@ func TargetHomeCreate() {
 			fmt.Printf("Error creating and writing to profiles.json: %v\n", err)
 		}
 	}
+
+	defaultsDir := targetHome + "/defaults"
+	if _, err := os.Stat(defaultsDir); os.IsNotExist(err) {
+		os.Mkdir(defaultsDir, 0755)
+	}
 }
