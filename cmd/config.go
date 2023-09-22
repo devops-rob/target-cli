@@ -17,17 +17,9 @@ type ConfigurationFlags struct {
 var path string
 
 var configlCmd = &cobra.Command{
-	Use:   "config",
-	Short: "Configure target CLI for shell sessions",
-	Long:  `Configure target CLI for shell sessions.`,
-	//ValidArgs: []string{
-	//	"zsh",
-	//	"bash",
-	//	"fish",
-	//	"dash",
-	//	"ksh",
-	//	"powershell",
-	//},
+	Use:                   "config",
+	Short:                 "Configure target CLI for shell sessions",
+	Long:                  `Configure target CLI for shell sessions.`,
 	Args:                  cobra.OnlyValidArgs,
 	DisableFlagsInUseLine: true,
 	Run: func(cmd *cobra.Command, args []string) {
@@ -85,7 +77,7 @@ done
 		if err != nil {
 			log.Fatal(err)
 		}
-		//defer file2.Close()
+		defer file2.Close()
 		_, err = file2.WriteString(configScript)
 		if err != nil {
 			log.Fatal(err)

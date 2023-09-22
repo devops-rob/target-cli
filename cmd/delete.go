@@ -82,3 +82,28 @@ var deleteNomadCmd = &cobra.Command{
 		}
 	},
 }
+
+var deleteBoundaryCmd = &cobra.Command{
+	Use:     "delete",
+	Short:   "delete removes a context profile",
+	Long:    `delete a context with the delete command.`,
+	Example: `target boundary delete -n example`,
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) != 1 {
+			return errors.New("requires a name argument")
+		}
+		return nil
+	},
+	Run: func(cmd *cobra.Command, args []string) {
+		nameToDelete := args[0]
+
+		if _, exists := c.Boundary[args[0]]; exists {
+			delete(c.Boundary, args[0])
+			viper.Set("boundary", c.Boundary)
+			viper.WriteConfig()
+			fmt.Printf("Deleted Boundary profile '%s'\n", nameToDelete)
+		} else {
+			fmt.Printf("Boundary profile '%s' not found\n", nameToDelete)
+		}
+	},
+}

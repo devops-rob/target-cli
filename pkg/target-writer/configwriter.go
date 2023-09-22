@@ -40,8 +40,8 @@ type Nomad struct {
 }
 
 type Default struct {
-	VaultProfile  string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	NomadProfile  string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	ConsulProfile string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	SerfProfile   string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
+	VaultProfile    string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
+	NomadProfile    string `json:"nomad_profile,omitempty" mapstracture:"nomad_profile"`
+	ConsulProfile   string `json:"consul_profile,omitempty" mapstracture:"consul_profile"`
+	BoundaryProfile string `json:"boundary_profile,omitempty" mapstracture:"boundary_profile"`
 }

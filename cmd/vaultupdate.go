@@ -3,9 +3,9 @@ package cmd
 import (
 	"errors"
 
-	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"log"
 )
 
 // updateCmd represents the update command
@@ -27,14 +27,29 @@ var vaultUpdateCmd = &cobra.Command{
 		}
 
 		v := &Vault{
-			Endpoint:  vaultendpoint,
-			Token:     vaulttoken,
-			CaPath:    vaultcapath,
-			CaCert:    vaultcacert,
-			Cert:      vaultcert,
-			Key:       vaultkey,
-			Format:    vaultformat,
-			Namespace: vaultnamespace,
+			Endpoint:         vaultendpoint,
+			Token:            vaulttoken,
+			CaPath:           vaultcapath,
+			CaCert:           vaultcacert,
+			Cert:             vaultcert,
+			Key:              vaultkey,
+			Format:           vaultformat,
+			Namespace:        vaultnamespace,
+			SkipVerify:       vaultSkipVerify,
+			ClientTimeout:    vaultClientTimeout,
+			ClusterAddr:      vaultClusterAddr,
+			License:          vaultLicense,
+			LicensePath:      vaultLicensePath,
+			LogLevel:         vaultLogLevel,
+			MaxRetries:       vaultMaxRetries,
+			RedirectAddr:     vaultRedirectAddr,
+			TlsServerName:    vaultTlsServerName,
+			CliNoColour:      vaultCliNoColour,
+			RateLimit:        vaultRateLimit,
+			SvrLookup:        vaultSvrLookup,
+			Mfa:              vaultMfa,
+			HttpProxy:        vaultHttpProxy,
+			DisableRedirects: vaultDisableRedirects,
 		}
 
 		c.Vault[args[0]] = v
@@ -53,5 +68,21 @@ func init() {
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultformat, "format", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
 	vaultUpdateCmd.PersistentFlags().StringVar(&vaultnamespace, "namespace", "", "set vault namespace to use for command")
+
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultSkipVerify, "skip-verify", "", "Do not verify Vault's presented certificate before communicating with it")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultClientTimeout, "client-timeout", "", "Set the Timeout variable")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultClusterAddr, "cluster-addr", "", "Set the address that should be used for other cluster members to connect to this node when in High Availability mode")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultLicense, "license", "", "Specify a license to use for this node.")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultLicensePath, "license-path", "", "Specify a path to a license on disk to use for this node.")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultLogLevel, "log-level", "", "Set the Vault server's log level")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultMaxRetries, "max-retries", "", "Set the maximum number of retries when certain error codes are encountered")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultRedirectAddr, "redirect-addr", "", "Set the address that should be used when clients are redirected to this node when in High Availability mode")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultTlsServerName, "tls-server-name", "", "Set the name to use as the SNI host when connecting via TLS")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultCliNoColour, "cli-no-colour", "", "If provided, Vault output will not include ANSI color escape sequence characters")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultRateLimit, "rate-limit", "", "Set the rate at which the vault command sends requests to Vault")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultSvrLookup, "svr-lookup", "", "Enables the client to lookup the host through DNS SRV look up")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultMfa, "mfa", "", "Set the MFA credentials in the format mfa_method_name[:key[=value]]")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultHttpProxy, "http=proxy", "", "Set the HTTP or HTTPS proxy location which should be used by all requests to access Vault")
+	vaultUpdateCmd.PersistentFlags().StringVar(&vaultDisableRedirects, "disable-redirects", "", "Prevents the Vault client from following redirects")
 
 }

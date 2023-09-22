@@ -2,10 +2,10 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/devops-rob/target-cli/pkg/targetdir"
 	"os"
 	"reflect"
 	"strings"
-	"target/pkg/targetdir"
 
 	"github.com/spf13/cobra"
 
@@ -20,22 +20,61 @@ var version string
 
 // Config struct containing different product profiles
 type Config struct {
-	Vault   map[string]*Vault   `json:"vault,omitempty" mapstructure:"vault"`
-	Consul  map[string]*Consul  `json:"consul,omitempty" mapstructure:"consul"`
-	Nomad   map[string]*Nomad   `json:"nomad,omitempty" mapstructure:"nomad"`
-	Default map[string]*Default `json:"default,omitempty" mapstructure:"default"`
+	Vault    map[string]*Vault    `json:"vault,omitempty" mapstructure:"vault"`
+	Consul   map[string]*Consul   `json:"consul,omitempty" mapstructure:"consul"`
+	Nomad    map[string]*Nomad    `json:"nomad,omitempty" mapstructure:"nomad"`
+	Boundary map[string]*Boundary `json:"boundary,omitempty" mapstructure:"boundary"`
+	Default  map[string]*Default  `json:"default,omitempty" mapstructure:"default"`
+}
+
+type Boundary struct {
+	Endpoint               string `json:"endpoint,omitempty"`
+	Token                  string `json:"token,omitempty"`
+	TokenName              string `json:"token_name,omitempty"`
+	CaPath                 string `json:"ca_path,omitempty"`
+	CaCert                 string `json:"ca_cert,omitempty"`
+	Cert                   string `json:"cert,omitempty"`
+	Key                    string `json:"key,omitempty"`
+	TlsInsecure            string `json:"tls_insecure,omitempty"`
+	TlsServerName          string `json:"tls_server_name,omitempty"`
+	RecoveryConfig         string `json:"recovery_config,omitempty"`
+	ConnectAuthZToken      string `json:"connect_auth_z_token,omitempty"`
+	ConnectExec            string `json:"connect_exec,omitempty"`
+	ConnectListenAddr      string `json:"connect_listen_addr,omitempty"`
+	ConnectListenPort      string `json:"connect_listen_port,omitempty"`
+	ConnectTargetScopeId   string `json:"connect_target_scope_id,omitempty"`
+	ConnectTargetScopeName string `json:"connect_target_scope_name,omitempty"`
+	AuthMethodId           string `json:"auth_method_id,omitempty"`
+	LogLevel               string `json:"log_level,omitempty"`
+	Format                 string `json:"format,omitempty"`
+	ScopeId                string `json:"scope_id,omitempty"`
 }
 
 // Vault struct with flag parameters
 type Vault struct {
-	Endpoint  string `json:"endpoint,omitempty"`
-	Token     string `json:"token,omitempty"`
-	CaPath    string `json:"ca_path,omitempty"`
-	CaCert    string `json:"ca_cert,omitempty"`
-	Cert      string `json:"cert,omitempty"`
-	Key       string `json:"key,omitempty"`
-	Format    string `json:"format,omitempty"`
-	Namespace string `json:"namespace,omitempty"`
+	Endpoint         string `json:"endpoint,omitempty"`
+	Token            string `json:"token,omitempty"`
+	CaPath           string `json:"ca_path,omitempty"`
+	CaCert           string `json:"ca_cert,omitempty"`
+	Cert             string `json:"cert,omitempty"`
+	Key              string `json:"key,omitempty"`
+	Format           string `json:"format,omitempty"`
+	Namespace        string `json:"namespace,omitempty"`
+	SkipVerify       string `json:"skip_verify,omitempty"`
+	ClientTimeout    string `json:"client_timeout,omitempty"`
+	ClusterAddr      string `json:"cluster_addr,omitempty"`
+	License          string `json:"license,omitempty"`
+	LicensePath      string `json:"license_path,omitempty"`
+	LogLevel         string `json:"log_level,omitempty"`
+	MaxRetries       string `json:"max_retries,omitempty"`
+	RedirectAddr     string `json:"redirect_addr,omitempty"`
+	TlsServerName    string `json:"tls_server_name,omitempty"`
+	CliNoColour      string `json:"cli_no_colour,omitempty"`
+	RateLimit        string `json:"rate_limit,omitempty"`
+	SvrLookup        string `json:"svr_lookup,omitempty"`
+	Mfa              string `json:"mfa,omitempty"`
+	HttpProxy        string `json:"http_proxy,omitempty"`
+	DisableRedirects string `json:"disable_redirects,omitempty"`
 }
 
 var (
@@ -68,17 +107,17 @@ type Nomad struct {
 
 // Default struct with default profiles
 type Default struct {
-	VaultProfile  string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	NomadProfile  string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	ConsulProfile string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	SerfProfile   string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
+	VaultProfile     string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
+	NomadProfile     string `json:"nomad_profile,omitempty" mapstracture:"nomad_profile"`
+	ConsulProfile    string `json:"consul_profile,omitempty" mapstracture:"consul_profile"`
+	BoundaryfProfile string `json:"boundary_profile,omitempty" mapstracture:"boundary_profile"`
 }
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "target",
 	Short: "A context switcher CLI tool for Hashicorp Tools",
-	Long: `Target allows a user to configure and switch between different contexts for their Vault, Nomad, Consul and Serf targets.
+	Long: `Target allows a user to configure and switch between different contexts for their Vault, Nomad, Consul and Boundary targets by setting tool specific environment variables.
 	
 A context contains connection details for a given target.
 Example: 
@@ -88,6 +127,8 @@ Example:
 		"vault",
 		"nomad",
 		"consul",
+		"boundary",
+		"config",
 	},
 	Args:    cobra.OnlyValidArgs,
 	Version: version,
@@ -111,6 +152,7 @@ func init() {
 	rootCmd.AddCommand(nomadCmd)
 	rootCmd.AddCommand(consulCmd)
 	rootCmd.AddCommand(configlCmd)
+	rootCmd.AddCommand(boundaryCmd)
 
 }
 
@@ -142,9 +184,7 @@ func sliceOfMapsToMapHookFunc() mapstructure.DecodeHookFunc {
 }
 
 func initConfig() {
-	var defaultConfig = &Config{
-		// Your default configuration here...
-	}
+	var defaultConfig = &Config{}
 
 	// Find home directory.
 	home, err := homedir.Dir()
@@ -169,8 +209,6 @@ func initConfig() {
 				// Config file is empty, use default configuration
 				c = defaultConfig
 
-				// You can set default values here if needed
-				// For example:
 				c.Vault = map[string]*Vault{
 					"default": {
 						Endpoint:  "https://example-vault-url.com",
@@ -210,13 +248,12 @@ func initConfig() {
 		if c.Consul == nil {
 			c.Consul = map[string]*Consul{}
 		}
+		if c.Boundary == nil {
+			c.Boundary = map[string]*Boundary{}
+		}
 	}
 
 	// Automatically bind environment variables
 	viper.AutomaticEnv()
 
-	// If a config file is found, print its path
-	//if viper.ConfigFileUsed() != "" {
-	//	fmt.Println("Using config file:", viper.ConfigFileUsed())
-	//}
 }

@@ -4,9 +4,9 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"log"
 )
 
 var vaultCreateCmd = &cobra.Command{
@@ -27,14 +27,29 @@ var vaultCreateCmd = &cobra.Command{
 
 		}
 		v := &Vault{
-			Endpoint:  vaultendpoint,
-			Token:     vaulttoken,
-			CaPath:    vaultcapath,
-			CaCert:    vaultcacert,
-			Cert:      vaultcert,
-			Key:       vaultkey,
-			Format:    vaultformat,
-			Namespace: vaultnamespace,
+			Endpoint:         vaultendpoint,
+			Token:            vaulttoken,
+			CaPath:           vaultcapath,
+			CaCert:           vaultcacert,
+			Cert:             vaultcert,
+			Key:              vaultkey,
+			Format:           vaultformat,
+			Namespace:        vaultnamespace,
+			SkipVerify:       vaultSkipVerify,
+			ClientTimeout:    vaultClientTimeout,
+			ClusterAddr:      vaultClusterAddr,
+			License:          vaultLicense,
+			LicensePath:      vaultLicensePath,
+			LogLevel:         vaultLogLevel,
+			MaxRetries:       vaultMaxRetries,
+			RedirectAddr:     vaultRedirectAddr,
+			TlsServerName:    vaultTlsServerName,
+			CliNoColour:      vaultCliNoColour,
+			RateLimit:        vaultRateLimit,
+			SvrLookup:        vaultSvrLookup,
+			Mfa:              vaultMfa,
+			HttpProxy:        vaultHttpProxy,
+			DisableRedirects: vaultDisableRedirects,
 		}
 
 		c.Vault[args[0]] = v
@@ -56,6 +71,22 @@ func init() {
 	vaultCreateCmd.PersistentFlags().StringVar(&vaultkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
 	vaultCreateCmd.PersistentFlags().StringVar(&vaultformat, "format", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
 	vaultCreateCmd.PersistentFlags().StringVar(&vaultnamespace, "namespace", "", "set vault namespace to use for command")
+	// new flags
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultSkipVerify, "skip-verify", "", "Do not verify Vault's presented certificate before communicating with it")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultClientTimeout, "client-timeout", "", "Set the Timeout variable")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultClusterAddr, "cluster-addr", "", "Set the address that should be used for other cluster members to connect to this node when in High Availability mode")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultLicense, "license", "", "Specify a license to use for this node.")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultLicensePath, "license-path", "", "Specify a path to a license on disk to use for this node.")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultLogLevel, "log-level", "", "Set the Vault server's log level")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultMaxRetries, "max-retries", "", "Set the maximum number of retries when certain error codes are encountered")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultRedirectAddr, "redirect-addr", "", "Set the address that should be used when clients are redirected to this node when in High Availability mode")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultTlsServerName, "tls-server-name", "", "Set the name to use as the SNI host when connecting via TLS")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultCliNoColour, "cli-no-colour", "", "If provided, Vault output will not include ANSI color escape sequence characters")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultRateLimit, "rate-limit", "", "Set the rate at which the vault command sends requests to Vault")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultSvrLookup, "svr-lookup", "", "Enables the client to lookup the host through DNS SRV look up")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultMfa, "mfa", "", "Set the MFA credentials in the format mfa_method_name[:key[=value]]")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultHttpProxy, "http=proxy", "", "Set the HTTP or HTTPS proxy location which should be used by all requests to access Vault")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultDisableRedirects, "disable-redirects", "", "Prevents the Vault client from following redirects")
 
 	vaultCreateCmd.MarkPersistentFlagRequired(
 		"endpoint",

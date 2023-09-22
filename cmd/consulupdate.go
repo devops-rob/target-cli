@@ -3,9 +3,9 @@ package cmd
 import (
 	"errors"
 
-	"github.com/prometheus/common/log"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"log"
 )
 
 // updateCmd represents the update command
@@ -35,6 +35,7 @@ var consulUpdateCmd = &cobra.Command{
 			ConsulCert:      consulcert,
 			ConsulKey:       consulkey,
 			ConsulTokenFile: consultokenfile,
+			ConsulNamespace: consulnamespace,
 		}
 
 		c.Consul[args[0]] = C
@@ -52,4 +53,5 @@ func init() {
 	consulUpdateCmd.PersistentFlags().StringVar(&consulcacert, "cacert", "", "set path to a PEM-encoded CA certificate file on the local disk")
 	consulUpdateCmd.PersistentFlags().StringVar(&consulcert, "cert", "", "set path to a PEM-encoded client certificate on the local disk")
 	consulUpdateCmd.PersistentFlags().StringVar(&consulkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
+	consulUpdateCmd.PersistentFlags().StringVar(&consulnamespace, "namespace", "", "set consul namespace for this context")
 }
