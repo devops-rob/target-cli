@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-// switchVaultCmd represents the switch command for Vault
+// selectVaultCmd represents the switch command for Vault
 var selectVaultCmd = &cobra.Command{
 	Use:     "select [name]",
 	Short:   "select a context profile",
@@ -125,14 +125,79 @@ var selectVaultCmd = &cobra.Command{
 			exportCommandStr = append(exportCommandStr, shellCommandLicensePath)
 		}
 
-		var shellComandLogLevel
+		var shellCommandLogLevel string
 		logLevel := context.LogLevel
 		if logLevel != "" {
+			shellCommandLogLevel = fmt.Sprintf("export VAULT_LOG_LEVEL=%s", logLevel)
+			exportCommandStr = append(exportCommandStr, shellCommandLogLevel)
+		}
 
+		var shellCommandMaxRetries string
+		maxRetries := context.MaxRetries
+		if maxRetries != "" {
+			shellCommandMaxRetries = fmt.Sprintf("export VAULT_MAX_RETRIES=%s", maxRetries)
+			exportCommandStr = append(exportCommandStr, shellCommandMaxRetries)
+		}
+
+		var shellCommandRedirectAddr string
+		redirectAddr := context.RedirectAddr
+		if redirectAddr != "" {
+			shellCommandRedirectAddr = fmt.Sprintf("export VAULT_REDIRECT_ADDR=%s", redirectAddr)
+			exportCommandStr = append(exportCommandStr, shellCommandRedirectAddr)
+		}
+
+		var shellCommandServerName string
+		serverName := context.TlsServerName
+		if serverName != "" {
+			shellCommandServerName = fmt.Sprintf("export VAULT_TLS_SERVER_NAME=%s", serverName)
+			exportCommandStr = append(exportCommandStr, shellCommandServerName)
+		}
+
+		var shellCommandCliNoColour string
+		cliNoColour := context.CliNoColour
+		if cliNoColour != "" {
+			shellCommandCliNoColour = fmt.Sprintf("export VAULT_CLI_NO_COLOR=%s", cliNoColour)
+			exportCommandStr = append(exportCommandStr, shellCommandCliNoColour)
+		}
+
+		var shellCommandRateLimit string
+		rateLimit := context.RateLimit
+		if rateLimit != "" {
+			shellCommandRateLimit = fmt.Sprintf("export VAULT_RATE_LIMIT=%s", rateLimit)
+			exportCommandStr = append(exportCommandStr, shellCommandRateLimit)
+		}
+
+		var shellCommandSvrLookup string
+		svrLookup := context.SvrLookup
+		if svrLookup != "" {
+			shellCommandSvrLookup = fmt.Sprintf("export VAULT_SRV_LOOKUP=%s", svrLookup)
+			exportCommandStr = append(exportCommandStr, shellCommandSvrLookup)
+		}
+
+		var shellCommandMfa string
+		mfa := context.Mfa
+		if svrLookup != "" {
+			shellCommandMfa = fmt.Sprintf("export VAULT_MFA=%s", mfa)
+			exportCommandStr = append(exportCommandStr, shellCommandMfa)
+		}
+
+		var shellCommandHttpProxy string
+		httpProxy := context.HttpProxy
+		if httpProxy != "" {
+			shellCommandHttpProxy = fmt.Sprintf("export VAULT_HTTP_PROXY=%s", httpProxy)
+			exportCommandStr = append(exportCommandStr, shellCommandHttpProxy)
+		}
+
+		var shellCommandDisableRedirects string
+		disableRedirects := context.DisableRedirects
+		if disableRedirects != "" {
+			shellCommandDisableRedirects = fmt.Sprintf("export VAULT_DISABLE_REDIRECTS=%s", disableRedirects)
+			exportCommandStr = append(exportCommandStr, shellCommandDisableRedirects)
 		}
 
 		commandStr := strings.Join(exportCommandStr, "; ")
 		fmt.Println(commandStr)
+		fmt.Println(format) //debugging line
 	},
 }
 

@@ -11,14 +11,14 @@ import (
 )
 
 var (
-	nomadendpoint  string
-	nomadregion    string
-	nomadtoken     string
-	nomadcapath    string
-	nomadcacert    string
-	nomadcert      string
-	nomadkey       string
-	nomadnamespace string
+	nomadEndpoint  string
+	nomadRegion    string
+	nomadToken     string
+	nomadCaPath    string
+	nomadCaCert    string
+	nomadCert      string
+	nomadKey       string
+	nomadNamespace string
 )
 
 var nomadCmd = &cobra.Command{

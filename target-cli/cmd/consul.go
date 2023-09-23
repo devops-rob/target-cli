@@ -11,14 +11,14 @@ import (
 )
 
 var (
-	consulendpoint  string
-	consultoken     string
-	consultokenfile string
-	consulcapath    string
-	consulcacert    string
-	consulcert      string
-	consulkey       string
-	consulnamespace string
+	consulEndpoint  string
+	consulToken     string
+	consulTokenFile string
+	consulCaPath    string
+	consulCaCert    string
+	consulCert      string
+	consulKey       string
+	consulNamespace string
 )
 
 var consulCmd = &cobra.Command{

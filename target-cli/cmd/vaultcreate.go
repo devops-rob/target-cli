@@ -27,14 +27,14 @@ var vaultCreateCmd = &cobra.Command{
 
 		}
 		v := &Vault{
-			Endpoint:         vaultendpoint,
-			Token:            vaulttoken,
-			CaPath:           vaultcapath,
-			CaCert:           vaultcacert,
-			Cert:             vaultcert,
-			Key:              vaultkey,
-			Format:           vaultformat,
-			Namespace:        vaultnamespace,
+			Endpoint:         vaultEndpoint,
+			Token:            vaultToken,
+			CaPath:           vaultCaPath,
+			CaCert:           vaultCaCert,
+			Cert:             vaultCert,
+			Key:              vaultKey,
+			Format:           vaultFormat,
+			Namespace:        vaultNamespace,
 			SkipVerify:       vaultSkipVerify,
 			ClientTimeout:    vaultClientTimeout,
 			ClusterAddr:      vaultClusterAddr,
@@ -55,7 +55,10 @@ var vaultCreateCmd = &cobra.Command{
 		c.Vault[args[0]] = v
 
 		viper.Set("vault", c.Vault)
-		viper.WriteConfig()
+		err := viper.WriteConfig()
+		if err != nil {
+			return
+		}
 		fmt.Printf("Created Vault profile '%s'\n", args[0])
 
 	},
@@ -63,14 +66,14 @@ var vaultCreateCmd = &cobra.Command{
 
 func init() {
 
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultendpoint, "endpoint", "", "set target endpoint details. e.g https://example-vault.com:8200")
-	vaultCreateCmd.PersistentFlags().StringVar(&vaulttoken, "token", "", "set vault auth token for this context")
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultcapath, "capath", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultcacert, "cacert", "", "set path to a PEM-encoded CA certificate file on the local disk")
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultcert, "cert", "", "set path to a PEM-encoded client certificate on the local disk")
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultkey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultformat, "format", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
-	vaultCreateCmd.PersistentFlags().StringVar(&vaultnamespace, "namespace", "", "set vault namespace to use for command")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultEndpoint, "endpoint", "", "set target endpoint details. e.g https://example-vault.com:8200")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultToken, "token", "", "set vault auth token for this context")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultCaPath, "capath", "", "set path to a directory of PEM-encoded CA certificate files on the local disk")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultCaCert, "cacert", "", "set path to a PEM-encoded CA certificate file on the local disk")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultCert, "cert", "", "set path to a PEM-encoded client certificate on the local disk")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultKey, "key", "", "set path to an unencrypted, PEM-encoded private key on disk which corresponds to the matching client certificate")
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultFormat, "format", "", `set vault output (read/status/write) in the specified format. Valid formats are "table", "json", or "yaml"`)
+	vaultCreateCmd.PersistentFlags().StringVar(&vaultNamespace, "namespace", "", "set vault namespace to use for command")
 	// new flags
 	vaultCreateCmd.PersistentFlags().StringVar(&vaultSkipVerify, "skip-verify", "", "Do not verify Vault's presented certificate before communicating with it")
 	vaultCreateCmd.PersistentFlags().StringVar(&vaultClientTimeout, "client-timeout", "", "Set the Timeout variable")
