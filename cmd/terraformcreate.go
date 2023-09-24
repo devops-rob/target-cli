@@ -55,7 +55,6 @@ var terraformCreateCmd = &cobra.Command{
 
 func init() {
 
-	//terraformCreateCmd.Flags().StringSlice("var", map[string]string, "set a terraform variable in a key/value pair, e.g name=rob. Can be specified multiple times")
 	terraformCreateCmd.PersistentFlags().StringSliceVarP(&tfVarFlag, "var", "v", []string{}, "set a terraform variable in a key/value pair, e.g name=rob. Can be specified multiple times")
 
 	err := terraformCreateCmd.MarkPersistentFlagRequired(
