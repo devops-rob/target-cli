@@ -19,11 +19,16 @@ var version string
 
 // Config struct containing different product profiles
 type Config struct {
-	Vault    map[string]*Vault    `json:"vault,omitempty" mapstructure:"vault"`
-	Consul   map[string]*Consul   `json:"consul,omitempty" mapstructure:"consul"`
-	Nomad    map[string]*Nomad    `json:"nomad,omitempty" mapstructure:"nomad"`
-	Boundary map[string]*Boundary `json:"boundary,omitempty" mapstructure:"boundary"`
+	Vault     map[string]*Vault     `json:"vault,omitempty" mapstructure:"vault"`
+	Consul    map[string]*Consul    `json:"consul,omitempty" mapstructure:"consul"`
+	Nomad     map[string]*Nomad     `json:"nomad,omitempty" mapstructure:"nomad"`
+	Boundary  map[string]*Boundary  `json:"boundary,omitempty" mapstructure:"boundary"`
+	Terraform map[string]*Terraform `json:"terraform,omitempty" mapstructure:"terraform"`
 	//Default  map[string]*Default  `json:"default,omitempty" mapstructure:"default"`
+}
+
+type Terraform struct {
+	Vars map[string]string `json:"vars,omitempty" mapstructure:"vars"`
 }
 
 type Boundary struct {
@@ -127,6 +132,7 @@ Example:
 		"nomad",
 		"consul",
 		"boundary",
+		"terraform",
 		"config",
 	},
 	Args:    cobra.OnlyValidArgs,
@@ -152,6 +158,7 @@ func init() {
 	rootCmd.AddCommand(consulCmd)
 	rootCmd.AddCommand(configlCmd)
 	rootCmd.AddCommand(boundaryCmd)
+	rootCmd.AddCommand(terraformCmd)
 
 }
 
@@ -227,6 +234,9 @@ func initConfig() {
 		}
 		if c.Boundary == nil {
 			c.Boundary = map[string]*Boundary{}
+		}
+		if c.Terraform == nil {
+			c.Terraform = map[string]*Terraform{}
 		}
 	}
 
