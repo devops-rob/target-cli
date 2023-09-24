@@ -51,29 +51,29 @@ type Boundary struct {
 
 // Vault struct with flag parameters
 type Vault struct {
-	Endpoint         string `json:"endpoint,omitempty"`
-	Token            string `json:"token,omitempty"`
-	CaPath           string `json:"ca_path,omitempty"`
-	CaCert           string `json:"ca_cert,omitempty"`
-	Cert             string `json:"cert,omitempty"`
-	Key              string `json:"key,omitempty"`
-	Format           string `json:"format,omitempty"`
-	Namespace        string `json:"namespace,omitempty"`
-	SkipVerify       string `json:"skip_verify,omitempty"`
-	ClientTimeout    string `json:"client_timeout,omitempty"`
-	ClusterAddr      string `json:"cluster_addr,omitempty"`
-	License          string `json:"license,omitempty"`
-	LicensePath      string `json:"license_path,omitempty"`
-	LogLevel         string `json:"log_level,omitempty"`
-	MaxRetries       string `json:"max_retries,omitempty"`
-	RedirectAddr     string `json:"redirect_addr,omitempty"`
-	TlsServerName    string `json:"tls_server_name,omitempty"`
-	CliNoColour      string `json:"cli_no_colour,omitempty"`
-	RateLimit        string `json:"rate_limit,omitempty"`
-	SvrLookup        string `json:"svr_lookup,omitempty"`
-	Mfa              string `json:"mfa,omitempty"`
-	HttpProxy        string `json:"http_proxy,omitempty"`
-	DisableRedirects string `json:"disable_redirects,omitempty"`
+	Endpoint         string `json:"endpoint,omitempty" mapstructure:"endpoint"`
+	Token            string `json:"token,omitempty" mapstructure:"token"`
+	CaPath           string `json:"ca_path,omitempty" mapstructure:"ca_path"`
+	CaCert           string `json:"ca_cert,omitempty" mapstructure:"ca_cert"`
+	Cert             string `json:"cert,omitempty" mapstructure:"cert"`
+	Key              string `json:"key,omitempty" mapstructure:"key"`
+	Format           string `json:"format,omitempty" mapstructure:"format"`
+	Namespace        string `json:"namespace,omitempty" mapstructure:"namespace"`
+	SkipVerify       string `json:"skip_verify,omitempty" mapstructure:"skip_verify"`
+	ClientTimeout    string `json:"client_timeout,omitempty" mapstructure:"client_timeout"`
+	ClusterAddr      string `json:"cluster_addr,omitempty" mapstructure:"cluster_addr"`
+	License          string `json:"license,omitempty" mapstructure:"license"`
+	LicensePath      string `json:"license_path,omitempty" mapstructure:"license_path"`
+	LogLevel         string `json:"log_level,omitempty" mapstructure:"log_level"`
+	MaxRetries       string `json:"max_retries,omitempty" mapstructure:"max_retries"`
+	RedirectAddr     string `json:"redirect_addr,omitempty" mapstructure:"redirect_addr"`
+	TlsServerName    string `json:"tls_server_name,omitempty" mapstructure:"tls_server_name"`
+	CliNoColour      string `json:"cli_no_colour,omitempty" mapstructure:"cli_no_colour"`
+	RateLimit        string `json:"rate_limit,omitempty" mapstructure:"rate_limit"`
+	SvrLookup        string `json:"svr_lookup,omitempty" mapstructure:"svr_lookup"`
+	Mfa              string `json:"mfa,omitempty" mapstructure:"mfa"`
+	HttpProxy        string `json:"http_proxy,omitempty" mapstructure:"http_proxy"`
+	DisableRedirects string `json:"disable_redirects,omitempty" mapstructure:"disable_redirects"`
 }
 
 var (

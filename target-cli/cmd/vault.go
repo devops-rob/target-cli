@@ -208,7 +208,7 @@ var vaultSetDefaultCmd = &cobra.Command{
 
 		var shellCommandMfa string
 		mfa := context.Mfa
-		if svrLookup != "" {
+		if mfa != "" {
 			shellCommandMfa = fmt.Sprintf("export VAULT_MFA=%s", mfa)
 			exportCommandStr = append(exportCommandStr, shellCommandMfa)
 		}
