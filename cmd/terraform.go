@@ -24,4 +24,5 @@ func init() {
 	terraformCmd.AddCommand(deleteTerraformCmd)
 	terraformCmd.AddCommand(listTerraformCmd)
 	terraformCmd.AddCommand(terraformUpdateCmd)
+	terraformCmd.AddCommand(selectTerraformCmd)
 }
