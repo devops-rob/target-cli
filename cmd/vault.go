@@ -54,8 +54,8 @@ var vaultCmd = &cobra.Command{
 
 var vaultSetDefaultCmd = &cobra.Command{
 	Use:                   "set-default",
-	Short:                 "set a default context profile for Nomad ",
-	Long:                  `set a default context profile for Nomad.`,
+	Short:                 "set a default context profile for Vault ",
+	Long:                  `set a default context profile for Vault.`,
 	DisableFlagsInUseLine: true,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
@@ -208,7 +208,7 @@ var vaultSetDefaultCmd = &cobra.Command{
 
 		var shellCommandMfa string
 		mfa := context.Mfa
-		if svrLookup != "" {
+		if mfa != "" {
 			shellCommandMfa = fmt.Sprintf("export VAULT_MFA=%s", mfa)
 			exportCommandStr = append(exportCommandStr, shellCommandMfa)
 		}

@@ -176,7 +176,7 @@ var selectVaultCmd = &cobra.Command{
 
 		var shellCommandMfa string
 		mfa := context.Mfa
-		if svrLookup != "" {
+		if mfa != "" {
 			shellCommandMfa = fmt.Sprintf("export VAULT_MFA=%s", mfa)
 			exportCommandStr = append(exportCommandStr, shellCommandMfa)
 		}
@@ -197,7 +197,6 @@ var selectVaultCmd = &cobra.Command{
 
 		commandStr := strings.Join(exportCommandStr, "; ")
 		fmt.Println(commandStr)
-		fmt.Println(format) //debugging line
 	},
 }
 

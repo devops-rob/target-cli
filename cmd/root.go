@@ -3,18 +3,17 @@ package cmd
 import (
 	"fmt"
 	"github.com/devops-rob/target-cli/pkg/targetdir"
+	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
 	"os"
 	"reflect"
-	"strings"
-
-	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/viper"
 )
 
-var cfgFile = ""
+//var cfgFile = ""
 
 var version string
 
@@ -24,57 +23,57 @@ type Config struct {
 	Consul   map[string]*Consul   `json:"consul,omitempty" mapstructure:"consul"`
 	Nomad    map[string]*Nomad    `json:"nomad,omitempty" mapstructure:"nomad"`
 	Boundary map[string]*Boundary `json:"boundary,omitempty" mapstructure:"boundary"`
-	Default  map[string]*Default  `json:"default,omitempty" mapstructure:"default"`
+	//Default  map[string]*Default  `json:"default,omitempty" mapstructure:"default"`
 }
 
 type Boundary struct {
-	Endpoint               string `json:"endpoint,omitempty"`
-	Token                  string `json:"token,omitempty"`
-	TokenName              string `json:"token_name,omitempty"`
-	CaPath                 string `json:"ca_path,omitempty"`
-	CaCert                 string `json:"ca_cert,omitempty"`
-	Cert                   string `json:"cert,omitempty"`
-	Key                    string `json:"key,omitempty"`
-	TlsInsecure            string `json:"tls_insecure,omitempty"`
-	TlsServerName          string `json:"tls_server_name,omitempty"`
-	RecoveryConfig         string `json:"recovery_config,omitempty"`
-	ConnectAuthZToken      string `json:"connect_auth_z_token,omitempty"`
-	ConnectExec            string `json:"connect_exec,omitempty"`
-	ConnectListenAddr      string `json:"connect_listen_addr,omitempty"`
-	ConnectListenPort      string `json:"connect_listen_port,omitempty"`
-	ConnectTargetScopeId   string `json:"connect_target_scope_id,omitempty"`
-	ConnectTargetScopeName string `json:"connect_target_scope_name,omitempty"`
-	AuthMethodId           string `json:"auth_method_id,omitempty"`
-	LogLevel               string `json:"log_level,omitempty"`
-	Format                 string `json:"format,omitempty"`
-	ScopeId                string `json:"scope_id,omitempty"`
+	Endpoint               string `json:"endpoint,omitempty" mapstructure:"endpoint"`
+	Token                  string `json:"token,omitempty" mapstructure:"token"`
+	TokenName              string `json:"token_name,omitempty" mapstructure:"token_name"`
+	CaPath                 string `json:"ca_path,omitempty" mapstructure:"ca_path"`
+	CaCert                 string `json:"ca_cert,omitempty" mapstructure:"ca_cert"`
+	Cert                   string `json:"cert,omitempty" mapstructure:"cert"`
+	Key                    string `json:"key,omitempty" mapstructure:"key"`
+	TlsInsecure            string `json:"tls_insecure,omitempty" mapstructure:"tls_insecure"`
+	TlsServerName          string `json:"tls_server_name,omitempty" mapstructure:"tls_server_name"`
+	RecoveryConfig         string `json:"recovery_config,omitempty" mapstructure:"recovery_config"`
+	ConnectAuthZToken      string `json:"connect_auth_z_token,omitempty" mapstructure:"connect_auth_z_token"`
+	ConnectExec            string `json:"connect_exec,omitempty" mapstructure:"connect_exec"`
+	ConnectListenAddr      string `json:"connect_listen_addr,omitempty" mapstructure:"connect_listen_addr"`
+	ConnectListenPort      string `json:"connect_listen_port,omitempty" mapstructure:"connect_listen_port"`
+	ConnectTargetScopeId   string `json:"connect_target_scope_id,omitempty" mapstructure:"connect_target_scope_id"`
+	ConnectTargetScopeName string `json:"connect_target_scope_name,omitempty" mapstructure:"connect_target_scope_name"`
+	AuthMethodId           string `json:"auth_method_id,omitempty" mapstructure:"auth_method_id"`
+	LogLevel               string `json:"log_level,omitempty" mapstructure:"log_level"`
+	Format                 string `json:"format,omitempty" mapstructure:"format"`
+	ScopeId                string `json:"scope_id,omitempty" mapstructure:"scope_id"`
 }
 
 // Vault struct with flag parameters
 type Vault struct {
-	Endpoint         string `json:"endpoint,omitempty"`
-	Token            string `json:"token,omitempty"`
-	CaPath           string `json:"ca_path,omitempty"`
-	CaCert           string `json:"ca_cert,omitempty"`
-	Cert             string `json:"cert,omitempty"`
-	Key              string `json:"key,omitempty"`
-	Format           string `json:"format,omitempty"`
-	Namespace        string `json:"namespace,omitempty"`
-	SkipVerify       string `json:"skip_verify,omitempty"`
-	ClientTimeout    string `json:"client_timeout,omitempty"`
-	ClusterAddr      string `json:"cluster_addr,omitempty"`
-	License          string `json:"license,omitempty"`
-	LicensePath      string `json:"license_path,omitempty"`
-	LogLevel         string `json:"log_level,omitempty"`
-	MaxRetries       string `json:"max_retries,omitempty"`
-	RedirectAddr     string `json:"redirect_addr,omitempty"`
-	TlsServerName    string `json:"tls_server_name,omitempty"`
-	CliNoColour      string `json:"cli_no_colour,omitempty"`
-	RateLimit        string `json:"rate_limit,omitempty"`
-	SvrLookup        string `json:"svr_lookup,omitempty"`
-	Mfa              string `json:"mfa,omitempty"`
-	HttpProxy        string `json:"http_proxy,omitempty"`
-	DisableRedirects string `json:"disable_redirects,omitempty"`
+	Endpoint         string `json:"endpoint,omitempty" mapstructure:"endpoint"`
+	Token            string `json:"token,omitempty" mapstructure:"token"`
+	CaPath           string `json:"ca_path,omitempty" mapstructure:"ca_path"`
+	CaCert           string `json:"ca_cert,omitempty" mapstructure:"ca_cert"`
+	Cert             string `json:"cert,omitempty" mapstructure:"cert"`
+	Key              string `json:"key,omitempty" mapstructure:"key"`
+	Format           string `json:"format,omitempty" mapstructure:"format"`
+	Namespace        string `json:"namespace,omitempty" mapstructure:"namespace"`
+	SkipVerify       string `json:"skip_verify,omitempty" mapstructure:"skip_verify"`
+	ClientTimeout    string `json:"client_timeout,omitempty" mapstructure:"client_timeout"`
+	ClusterAddr      string `json:"cluster_addr,omitempty" mapstructure:"cluster_addr"`
+	License          string `json:"license,omitempty" mapstructure:"license"`
+	LicensePath      string `json:"license_path,omitempty" mapstructure:"license_path"`
+	LogLevel         string `json:"log_level,omitempty" mapstructure:"log_level"`
+	MaxRetries       string `json:"max_retries,omitempty" mapstructure:"max_retries"`
+	RedirectAddr     string `json:"redirect_addr,omitempty" mapstructure:"redirect_addr"`
+	TlsServerName    string `json:"tls_server_name,omitempty" mapstructure:"tls_server_name"`
+	CliNoColour      string `json:"cli_no_colour,omitempty" mapstructure:"cli_no_colour"`
+	RateLimit        string `json:"rate_limit,omitempty" mapstructure:"rate_limit"`
+	SvrLookup        string `json:"svr_lookup,omitempty" mapstructure:"svr_lookup"`
+	Mfa              string `json:"mfa,omitempty" mapstructure:"mfa"`
+	HttpProxy        string `json:"http_proxy,omitempty" mapstructure:"http_proxy"`
+	DisableRedirects string `json:"disable_redirects,omitempty" mapstructure:"disable_redirects"`
 }
 
 var (
@@ -106,12 +105,12 @@ type Nomad struct {
 }
 
 // Default struct with default profiles
-type Default struct {
-	VaultProfile     string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	NomadProfile     string `json:"nomad_profile,omitempty" mapstracture:"nomad_profile"`
-	ConsulProfile    string `json:"consul_profile,omitempty" mapstracture:"consul_profile"`
-	BoundaryfProfile string `json:"boundary_profile,omitempty" mapstracture:"boundary_profile"`
-}
+//type Default struct {
+//	VaultProfile     string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
+//	NomadProfile     string `json:"nomad_profile,omitempty" mapstracture:"nomad_profile"`
+//	ConsulProfile    string `json:"consul_profile,omitempty" mapstracture:"consul_profile"`
+//	BoundaryfProfile string `json:"boundary_profile,omitempty" mapstracture:"boundary_profile"`
+//}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -200,32 +199,10 @@ func initConfig() {
 
 	// Attempt to read the config file
 	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+		var configFileNotFoundError viper.ConfigFileNotFoundError
+		if errors.As(err, &configFileNotFoundError) {
 			// Config file not found, use default configuration
 			c = defaultConfig
-		} else {
-			// Check if the error message indicates an empty file
-			if strings.Contains(err.Error(), "empty") {
-				// Config file is empty, use default configuration
-				c = defaultConfig
-
-				c.Vault = map[string]*Vault{
-					"default": {
-						Endpoint:  "https://example-vault-url.com",
-						Token:     "your_vault_token",
-						CaPath:    "",
-						CaCert:    "",
-						Cert:      "",
-						Key:       "",
-						Format:    "",
-						Namespace: "",
-					},
-				}
-
-			} else {
-				fmt.Println(err)
-				os.Exit(1)
-			}
 		}
 	} else {
 		// Config file found and successfully loaded

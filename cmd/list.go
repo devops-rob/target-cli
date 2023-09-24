@@ -15,7 +15,7 @@ var listVaultCmd = &cobra.Command{
 
 		fmt.Println("########################################\n##                Vault               ##\n########################################")
 		for i, e := range c.Vault {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.Endpoint)
+			fmt.Printf("%s:\n  Endpoint: %s\n  Insecure: %s\n", i, e.Endpoint, e.SkipVerify)
 		}
 	},
 }
