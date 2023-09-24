@@ -61,3 +61,17 @@ var listBoundaryCmd = &cobra.Command{
 		}
 	},
 }
+
+var listTerraformCmd = &cobra.Command{
+	Use:     "list",
+	Short:   "list all context profiles for your chosen tool",
+	Long:    `list all context profiles for Vault using the list command`,
+	Example: `target terraform list`,
+	Run: func(cmd *cobra.Command, args []string) {
+
+		fmt.Println("########################################\n##              Terraform             ##\n########################################")
+		for i := range c.Terraform {
+			fmt.Printf("%s\n", i)
+		}
+	},
+}

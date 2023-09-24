@@ -535,3 +535,35 @@ var selectBoundaryCmd = &cobra.Command{
 		fmt.Println(commandStr)
 	},
 }
+
+var selectTerraformCmd = &cobra.Command{
+	Use:     "select [name]",
+	Short:   "select a context profile",
+	Long:    `select a context profile to use with the select command.`,
+	Example: `target terraform select example"`,
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) != 1 {
+			return errors.New("requires a name argument")
+		}
+		return nil
+	},
+	Run: func(cmd *cobra.Command, args []string) {
+		profile := args[0]
+
+		if c.Terraform[args[0]] == nil {
+			log.Fatalf("Profile %s not found", profile)
+		}
+
+		context := c.Terraform[args[0]]
+
+		var exportCommandStr []string
+
+		for k, v := range context.Vars {
+			command := fmt.Sprintf("export TF_VAR_%s=%s", k, v)
+			exportCommandStr = append(exportCommandStr, command)
+		}
+
+		commandStr := strings.Join(exportCommandStr, "; ")
+		fmt.Println(commandStr)
+	},
+}

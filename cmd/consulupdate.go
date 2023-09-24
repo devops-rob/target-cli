@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -41,7 +42,12 @@ var consulUpdateCmd = &cobra.Command{
 		c.Consul[args[0]] = C
 
 		viper.Set("consul", c.Consul)
-		viper.WriteConfig()
+		err := viper.WriteConfig()
+		if err != nil {
+			return
+		}
+
+		fmt.Printf("Updated Consul profile '%s'\n", args[0])
 	},
 }
 
