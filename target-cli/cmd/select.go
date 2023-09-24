@@ -197,7 +197,7 @@ var selectVaultCmd = &cobra.Command{
 
 		commandStr := strings.Join(exportCommandStr, "; ")
 		fmt.Println(commandStr)
-		fmt.Println(format) //debugging line
+		fmt.Println(context.SkipVerify) //debugging line
 	},
 }
 

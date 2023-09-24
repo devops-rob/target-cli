@@ -3,11 +3,10 @@ package cmd
 import (
 	"fmt"
 	"github.com/devops-rob/target-cli/pkg/targetdir"
+	"github.com/pkg/errors"
+	"github.com/spf13/cobra"
 	"os"
 	"reflect"
-	"strings"
-
-	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/mitchellh/mapstructure"
@@ -200,32 +199,10 @@ func initConfig() {
 
 	// Attempt to read the config file
 	if err := viper.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+		var configFileNotFoundError viper.ConfigFileNotFoundError
+		if errors.As(err, &configFileNotFoundError) {
 			// Config file not found, use default configuration
 			c = defaultConfig
-		} else {
-			// Check if the error message indicates an empty file
-			if strings.Contains(err.Error(), "empty") {
-				// Config file is empty, use default configuration
-				c = defaultConfig
-
-				c.Vault = map[string]*Vault{
-					"default": {
-						Endpoint:  "https://example-vault-url.com",
-						Token:     "your_vault_token",
-						CaPath:    "",
-						CaCert:    "",
-						Cert:      "",
-						Key:       "",
-						Format:    "",
-						Namespace: "",
-					},
-				}
-
-			} else {
-				fmt.Println(err)
-				os.Exit(1)
-			}
 		}
 	} else {
 		// Config file found and successfully loaded
