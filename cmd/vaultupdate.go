@@ -60,7 +60,7 @@ var vaultUpdateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("Updated Vault profile %s\n", args[0])
+		fmt.Printf("Updated Vault profile '%s'\n", args[0])
 
 	},
 }

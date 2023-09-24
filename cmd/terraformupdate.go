@@ -47,7 +47,7 @@ var terraformUpdateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("Updated Terraform profile %s\n", args[0])
+		fmt.Printf("Updated Terraform profile '%s'\n", args[0])
 
 	},
 }

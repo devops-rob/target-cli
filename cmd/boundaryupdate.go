@@ -56,7 +56,7 @@ var boundaryUpdateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("Updated Boundary profile %s\n", args[0])
+		fmt.Printf("Updated Boundary profile '%s'\n", args[0])
 	},
 }
 

@@ -44,7 +44,7 @@ var nomadUpdateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("Updated Nomad profile %s\n", args[0])
+		fmt.Printf("Updated Nomad profile '%s'\n", args[0])
 	},
 }
 

@@ -47,7 +47,7 @@ var consulUpdateCmd = &cobra.Command{
 			return
 		}
 
-		fmt.Printf("Updated Consul profile %s\n", args[0])
+		fmt.Printf("Updated Consul profile '%s'\n", args[0])
 	},
 }
 
