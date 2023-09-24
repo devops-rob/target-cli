@@ -13,7 +13,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-var cfgFile = ""
+//var cfgFile = ""
 
 var version string
 
@@ -23,30 +23,30 @@ type Config struct {
 	Consul   map[string]*Consul   `json:"consul,omitempty" mapstructure:"consul"`
 	Nomad    map[string]*Nomad    `json:"nomad,omitempty" mapstructure:"nomad"`
 	Boundary map[string]*Boundary `json:"boundary,omitempty" mapstructure:"boundary"`
-	Default  map[string]*Default  `json:"default,omitempty" mapstructure:"default"`
+	//Default  map[string]*Default  `json:"default,omitempty" mapstructure:"default"`
 }
 
 type Boundary struct {
-	Endpoint               string `json:"endpoint,omitempty"`
-	Token                  string `json:"token,omitempty"`
-	TokenName              string `json:"token_name,omitempty"`
-	CaPath                 string `json:"ca_path,omitempty"`
-	CaCert                 string `json:"ca_cert,omitempty"`
-	Cert                   string `json:"cert,omitempty"`
-	Key                    string `json:"key,omitempty"`
-	TlsInsecure            string `json:"tls_insecure,omitempty"`
-	TlsServerName          string `json:"tls_server_name,omitempty"`
-	RecoveryConfig         string `json:"recovery_config,omitempty"`
-	ConnectAuthZToken      string `json:"connect_auth_z_token,omitempty"`
-	ConnectExec            string `json:"connect_exec,omitempty"`
-	ConnectListenAddr      string `json:"connect_listen_addr,omitempty"`
-	ConnectListenPort      string `json:"connect_listen_port,omitempty"`
-	ConnectTargetScopeId   string `json:"connect_target_scope_id,omitempty"`
-	ConnectTargetScopeName string `json:"connect_target_scope_name,omitempty"`
-	AuthMethodId           string `json:"auth_method_id,omitempty"`
-	LogLevel               string `json:"log_level,omitempty"`
-	Format                 string `json:"format,omitempty"`
-	ScopeId                string `json:"scope_id,omitempty"`
+	Endpoint               string `json:"endpoint,omitempty" mapstructure:"endpoint"`
+	Token                  string `json:"token,omitempty" mapstructure:"token"`
+	TokenName              string `json:"token_name,omitempty" mapstructure:"token_name"`
+	CaPath                 string `json:"ca_path,omitempty" mapstructure:"ca_path"`
+	CaCert                 string `json:"ca_cert,omitempty" mapstructure:"ca_cert"`
+	Cert                   string `json:"cert,omitempty" mapstructure:"cert"`
+	Key                    string `json:"key,omitempty" mapstructure:"key"`
+	TlsInsecure            string `json:"tls_insecure,omitempty" mapstructure:"tls_insecure"`
+	TlsServerName          string `json:"tls_server_name,omitempty" mapstructure:"tls_server_name"`
+	RecoveryConfig         string `json:"recovery_config,omitempty" mapstructure:"recovery_config"`
+	ConnectAuthZToken      string `json:"connect_auth_z_token,omitempty" mapstructure:"connect_auth_z_token"`
+	ConnectExec            string `json:"connect_exec,omitempty" mapstructure:"connect_exec"`
+	ConnectListenAddr      string `json:"connect_listen_addr,omitempty" mapstructure:"connect_listen_addr"`
+	ConnectListenPort      string `json:"connect_listen_port,omitempty" mapstructure:"connect_listen_port"`
+	ConnectTargetScopeId   string `json:"connect_target_scope_id,omitempty" mapstructure:"connect_target_scope_id"`
+	ConnectTargetScopeName string `json:"connect_target_scope_name,omitempty" mapstructure:"connect_target_scope_name"`
+	AuthMethodId           string `json:"auth_method_id,omitempty" mapstructure:"auth_method_id"`
+	LogLevel               string `json:"log_level,omitempty" mapstructure:"log_level"`
+	Format                 string `json:"format,omitempty" mapstructure:"format"`
+	ScopeId                string `json:"scope_id,omitempty" mapstructure:"scope_id"`
 }
 
 // Vault struct with flag parameters
@@ -105,12 +105,12 @@ type Nomad struct {
 }
 
 // Default struct with default profiles
-type Default struct {
-	VaultProfile     string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
-	NomadProfile     string `json:"nomad_profile,omitempty" mapstracture:"nomad_profile"`
-	ConsulProfile    string `json:"consul_profile,omitempty" mapstracture:"consul_profile"`
-	BoundaryfProfile string `json:"boundary_profile,omitempty" mapstracture:"boundary_profile"`
-}
+//type Default struct {
+//	VaultProfile     string `json:"vault_profile,omitempty" mapstracture:"vault_profile"`
+//	NomadProfile     string `json:"nomad_profile,omitempty" mapstracture:"nomad_profile"`
+//	ConsulProfile    string `json:"consul_profile,omitempty" mapstracture:"consul_profile"`
+//	BoundaryfProfile string `json:"boundary_profile,omitempty" mapstracture:"boundary_profile"`
+//}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
