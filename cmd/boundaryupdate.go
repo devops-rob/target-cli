@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -50,7 +51,12 @@ var boundaryUpdateCmd = &cobra.Command{
 		c.Boundary[args[0]] = b
 
 		viper.Set("boundary", c.Boundary)
-		viper.WriteConfig()
+		err := viper.WriteConfig()
+		if err != nil {
+			return
+		}
+
+		fmt.Printf("Updated Boundary profile %s\n", args[0])
 	},
 }
 

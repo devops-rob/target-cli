@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -38,7 +39,12 @@ var nomadUpdateCmd = &cobra.Command{
 		c.Nomad[args[0]] = n
 
 		viper.Set("nomad", c.Nomad)
-		viper.WriteConfig()
+		err := viper.WriteConfig()
+		if err != nil {
+			return
+		}
+
+		fmt.Printf("Updated Nomad profile %s\n", args[0])
 	},
 }
 

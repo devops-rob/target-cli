@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -45,6 +46,8 @@ var terraformUpdateCmd = &cobra.Command{
 		if err != nil {
 			return
 		}
+
+		fmt.Printf("Updated Terraform profile %s\n", args[0])
 
 	},
 }

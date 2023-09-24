@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -54,7 +55,12 @@ var vaultUpdateCmd = &cobra.Command{
 
 		c.Vault[args[0]] = v
 		viper.Set("vault", c.Vault)
-		viper.WriteConfig()
+		err := viper.WriteConfig()
+		if err != nil {
+			return
+		}
+
+		fmt.Printf("Updated Vault profile %s\n", args[0])
 
 	},
 }
