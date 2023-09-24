@@ -21,4 +21,5 @@ var terraformCmd = &cobra.Command{
 
 func init() {
 	terraformCmd.AddCommand(terraformCreateCmd)
+	terraformCmd.AddCommand(deleteTerraformCmd)
 }
