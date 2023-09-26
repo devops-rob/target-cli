@@ -81,4 +81,4 @@ This will update the values of the `dev` context profile created in the previous
 target terraform delete dev
 ```
 
-This will delete the context profile names `dev`
+This will delete the context profile named `dev`
