@@ -14,7 +14,7 @@ A context profile is a grouping of configuration parameters required to perform 
 ### Example usage
 
 ```shell
-target vault select prod
+eval $(target vault select prod)
 ```
 
 ### Current Supported Tools
@@ -25,20 +25,44 @@ target vault select prod
 - Consul
 - Nomad
 
+### Configuring Target CLI For Your Shell
+
+Target CLI allows engineers to set default context profiles that are automatically loaded into your shell session via Environment Variables. In order for this to work, you must configure your shell's start up scripts to load in Target CLI defaults.
+
+For example, to configure Target CLI for zsh, we need to point the CLI at our `zshrc file`. For most users, this will be located at `~/.zshrc`.
+
+To configure Target CLI for this shell type, run the following command
+
+```shell
+target configure --path "~/.zshrc"
+```
+
+This will write a small helper script to the file that will come into effect when a new shell session is loaded.
+
 ### Terraform
 
-This is designed to store sets of terraform variables into profiles to allow for easy switching.
+This is designed to store sets of terraform variables into profiles to allow for easy switching. 
+
+### Example Use case
+
+Let's say there are three environments, dev, test, and prod. Each environment is deployed and configured with Terraform. Configuration parameters are set using Terraform variables; however, each environment should be configured with its own naming convention. 
+
+- `dev` has resource names prefixed with `dev-`
+- `test` has resource names prefixed with `test-`
+- `prod` has resource names prefixed with `prod-`
+
+To configure a set of variables for each environment, we can set up a dev context profile where the variable values are set accordingly, and do the same for test and prod context profiles. This means to deploy to a specific environment, an operator can switch context before applying their terraform code.
 
 **Create Example**
 
 ```shell
-target terraform create example \
+target terraform create dev \
   --var "aws_region=eu-west1" \
-  --var "vpc_name=main" \
-  --var "ec2_instance_name=droid-vm"
+  --var "vpc_name=dev-vpc" \
+  --var "ec2_instance_name=dev-droid-vm"
 ```
 
-This will create a context profile named `example` with 3 terraform variables, `aws_region`, `vpc_name`, and `ec2_instance_name`
+This will create a context profile named `dev` with 3 terraform variables, `aws_region`, `vpc_name`, and `ec2_instance_name`
 
 **Update Example**
 
@@ -46,7 +70,15 @@ This will create a context profile named `example` with 3 terraform variables, `
 target terraform update example \
   --var "aws_region=eu-west2" \
   --var "vpc_name=dev" \
-  --var "ec2_instance_name=starship-vm"
+  --var "ec2_instance_name=dev-starship-vm"
 ```
 
-This will update the values of the `example` context profile created in the previous step
+This will update the values of the `dev` context profile created in the previous step
+
+**Delete Example**
+
+```shell
+target terraform delete dev
+```
+
+This will delete the context profile names `dev`
