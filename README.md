@@ -1,6 +1,6 @@
 # Target CLI
 
-A CLI tool to manage context profiles for HashiCorp products.  This allows you to save connection and configuration details, which would otherwise be set using Environment Variables into context profiles and gives the ability to switch between different profiles as required.
+A CLI tool to manage context profiles for HashiCorp products.  This allows you to save connection and configuration details, which would otherwise be set using Environment Variables into context profiles and gives the ability to switch between different profiles as required and set default context profiles.
 
 ### Example use case
 
@@ -43,7 +43,7 @@ This will write a small helper script to the file that will come into effect whe
 
 This is designed to store sets of terraform variables into profiles to allow for easy switching. 
 
-### Example Use case
+#### Example Use case
 
 Let's say there are three environments, dev, test, and prod. Each environment is deployed and configured with Terraform. Configuration parameters are set using Terraform variables; however, each environment should be configured with its own naming convention. 
 
@@ -82,3 +82,71 @@ target terraform delete dev
 ```
 
 This will delete the context profile named `dev`
+
+### Vault, Consul, Nomad and Boundary
+
+Each of these tool sub commands work in the same way using the available flags for each tool specific argument. Below are some examples using Vault
+
+**Create Example**
+
+```shell
+target vault create staging \
+  --endpoint "https://staging-vault.target:8200" \
+  --cacert "your CA cert" \
+  --cert "your cert" \
+  --key "your key" \
+  --skip-verify true \
+  --cli-no-colour true \
+  --client-timeout "60s" \
+  --format "json"
+```
+
+**Update Example**
+
+```shell
+target vault create staging \
+  --endpoint "https://staging-vault.com:8200" \
+  --cacert "your new CA cert" \
+  --cert "your cert" \
+  --key "your key" \
+  --skip-verify true \
+  --format "json"
+```
+
+**Delete Example**
+
+```shell
+target vault delete staging
+```
+
+**List Example**
+
+```shell
+target vault list
+```
+
+### Setting Default Context Profiles
+
+Setting the default or changing the default context profile for a tool can be done with the `set-default` sub command. 
+
+```shell
+target vault set-default staging
+```
+
+Once a default has been set, a new shell will need to be launch in order for the changes to take effect. All new shell session swill spawn with your defaults as set.
+
+### Switching Context profiles
+
+This can be done using the `select` sub command:
+
+```shell
+target vault select dev
+```
+
+This will print all `export` commands for the selected context profile. 
+
+In order for this to take effect in the current shell session, the above command will need to be wrapped in an `eval` command:
+
+```shell
+eval $(target vault select dev)
+```
