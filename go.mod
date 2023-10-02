@@ -1,6 +1,6 @@
 module github.com/devops-rob/target-cli
 
-go 1.21.0
+go 1.21
 
 require (
 	github.com/mitchellh/go-homedir v1.1.0
