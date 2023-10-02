@@ -27,6 +27,8 @@ brews:
     commit_author:
       name: devops-rob
       email: robert.barnes@devopsrob.com
+    commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
+
 
 checksum:
   name_template: 'checksums.txt'
