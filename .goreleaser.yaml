@@ -1,4 +1,5 @@
 builds:
+  - id: target
   - binary: target
     goos:
       - darwin
@@ -29,23 +30,5 @@ brews:
       email: robert.barnes@devopsrob.com
     commit_msg_template: "Brew formula update for {{ .ProjectName }} version {{ .Tag }}"
     license: "MIT"
-#    repository:
-#          # Repository owner.
-#          #
-#          # Templates: allowed
-#          owner: devops-rob
-#
-#          # Repository name.
-#          #
-#          # Templates: allowed
-#          name: homebrew-devops-rob
-#
-#          # Optionally a branch can be provided.
-#          #
-#          # Default: default repository branch
-#          # Templates: allowed
-#          branch: main
-
-
 checksum:
   name_template: 'checksums.txt'

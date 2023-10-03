@@ -4,6 +4,15 @@
 
 A CLI tool to manage context profiles for HashiCorp products.  This allows you to save connection and configuration details, which would otherwise be set using Environment Variables into context profiles and gives the ability to switch between different profiles as required and set default context profiles.
 
+
+### Installation
+
+**Brew**
+
+```shell
+brew tap devops-rob/homebrew-devops-rob && \
+  brew install target
+```
 ### Example use case
 
 There are two vault clusters, one for Dev (<http://dev-vault:8200>) and one for Prod (<https://prod-vault:8200>).
