@@ -1,5 +1,4 @@
 builds:
-  - id: target
   - binary: target
     goos:
       - darwin
