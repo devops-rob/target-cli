@@ -15,7 +15,7 @@ import (
 
 //var cfgFile = ""
 
-var version string
+var version string = "dev"
 
 // Config struct containing different product profiles
 type Config struct {
@@ -134,6 +134,7 @@ Example:
 		"boundary",
 		"terraform",
 		"config",
+		"version",
 	},
 	Args:    cobra.OnlyValidArgs,
 	Version: version,
@@ -159,6 +160,7 @@ func init() {
 	rootCmd.AddCommand(configlCmd)
 	rootCmd.AddCommand(boundaryCmd)
 	rootCmd.AddCommand(terraformCmd)
+	rootCmd.AddCommand(versionCmd)
 
 }
 
