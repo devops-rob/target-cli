@@ -2,7 +2,7 @@ builds:
   - binary: target
     id: target
     ldflags:
-      - "-X cmd.version={{.Version}}"
+      - "-X github.com/devops-rob/target-cli/cmd.version={{.Version}}"
     goos:
       - darwin
       - linux
