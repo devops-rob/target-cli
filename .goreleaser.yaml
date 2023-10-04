@@ -1,6 +1,8 @@
 builds:
   - binary: target
     id: target
+    ldflags:
+      - "-X cmd.version={{.Version}}"
     goos:
       - darwin
       - linux
