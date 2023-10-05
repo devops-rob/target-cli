@@ -26,7 +26,7 @@ brews:
     homepage: "https://github.com/devops-rob/target-cli"
     tap:
       owner: devops-rob
-      name: homebrew-devops-rob
+      name: homebrew-tap
     commit_author:
       name: devops-rob
       email: robert.barnes@devopsrob.com
