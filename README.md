@@ -7,10 +7,10 @@ A CLI tool to manage context profiles for HashiCorp products.  This allows you t
 
 ### Installation
 
-**Brew**
+**Mac / Linux via Brew**
 
 ```shell
-brew tap devops-rob/homebrew-devops-rob && \
+brew tap devops-rob/tap && \
   brew install target
 ```
 ### Example use case
