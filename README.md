@@ -13,6 +13,13 @@ A CLI tool to manage context profiles for HashiCorp products.  This allows you t
 brew tap devops-rob/tap && \
   brew install target
 ```
+
+**Releases**
+
+Binaries can be downloaded for the releases page.
+
+[https://github.com/devops-rob/target-cli/releases](https://github.com/devops-rob/target-cli/releases)
+
 ### Example use case
 
 There are two vault clusters, one for Dev (<http://dev-vault:8200>) and one for Prod (<https://prod-vault:8200>).
