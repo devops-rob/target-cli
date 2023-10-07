@@ -14,6 +14,12 @@ brew tap devops-rob/tap && \
   brew install target
 ```
 
+**Linux Quick Install**
+
+```shell
+curl https://raw.githubusercontent.com/devops-rob/target-cli/main/install.sh | bash
+```
+
 **Releases**
 
 Binaries can be downloaded for the releases page.
