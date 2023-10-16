@@ -1,7 +1,6 @@
 package cmd
 
 import (
-	"fmt"
 	"os"
 
 	"github.com/olekukonko/tablewriter"
@@ -115,10 +114,18 @@ var listTerraformCmd = &cobra.Command{
 	Long:    `list all context profiles for Vault using the list command`,
 	Example: `target terraform list`,
 	Run: func(cmd *cobra.Command, args []string) {
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+		})
 
-		fmt.Println("########################################\n##              Terraform             ##\n########################################")
 		for i := range c.Terraform {
-			fmt.Printf("%s\n", i)
+			data := []string{
+				i,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
