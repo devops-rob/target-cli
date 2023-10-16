@@ -66,10 +66,21 @@ var listNomadCmd = &cobra.Command{
 	Example: `target nomad list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Nomad               ##\n########################################")
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+
 		for i, e := range c.Nomad {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.NomadEndpoint)
+			data := []string{
+				i,
+				e.NomadEndpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
