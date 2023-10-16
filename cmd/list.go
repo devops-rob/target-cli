@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
 
@@ -13,10 +15,23 @@ var listVaultCmd = &cobra.Command{
 	Example: `target vault list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Vault               ##\n########################################")
+		//var listData [][]string
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+		table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
+
 		for i, e := range c.Vault {
-			fmt.Printf("%s:\n  Endpoint: %s\n  Insecure: %s\n", i, e.Endpoint, e.SkipVerify)
+			data := []string{
+				i,
+				e.Endpoint,
+			}
+			table.Append(data)
+			//fmt.Printf("%s:\n  Endpoint: %s\n  Insecure: %s\n", i, e.Endpoint, e.SkipVerify)
 		}
+		table.Render()
 	},
 }
 
