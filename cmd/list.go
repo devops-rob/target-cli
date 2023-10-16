@@ -91,10 +91,21 @@ var listBoundaryCmd = &cobra.Command{
 	Example: `target boundary list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Boundary               ##\n########################################")
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+
 		for i, e := range c.Boundary {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.Endpoint)
+			data := []string{
+				i,
+				e.Endpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
