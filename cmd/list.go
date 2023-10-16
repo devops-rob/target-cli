@@ -21,7 +21,7 @@ var listVaultCmd = &cobra.Command{
 			"Profile Name",
 			"Endpoint",
 		})
-		table.SetBorders(tablewriter.Border{Left: true, Top: false, Right: true, Bottom: false})
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
 
 		for i, e := range c.Vault {
 			data := []string{
@@ -29,7 +29,6 @@ var listVaultCmd = &cobra.Command{
 				e.Endpoint,
 			}
 			table.Append(data)
-			//fmt.Printf("%s:\n  Endpoint: %s\n  Insecure: %s\n", i, e.Endpoint, e.SkipVerify)
 		}
 		table.Render()
 	},
@@ -42,10 +41,21 @@ var listConsulCmd = &cobra.Command{
 	Example: `target consul list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Consul              ##\n########################################")
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+
 		for i, e := range c.Consul {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.ConsulEndpoint)
+			data := []string{
+				i,
+				e.ConsulEndpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
