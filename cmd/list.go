@@ -1,8 +1,9 @@
 package cmd
 
 import (
-	"fmt"
+	"os"
 
+	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
 
@@ -13,10 +14,22 @@ var listVaultCmd = &cobra.Command{
 	Example: `target vault list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Vault               ##\n########################################")
+		//var listData [][]string
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+
 		for i, e := range c.Vault {
-			fmt.Printf("%s:\n  Endpoint: %s\n  Insecure: %s\n", i, e.Endpoint, e.SkipVerify)
+			data := []string{
+				i,
+				e.Endpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
@@ -27,10 +40,21 @@ var listConsulCmd = &cobra.Command{
 	Example: `target consul list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Consul              ##\n########################################")
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+
 		for i, e := range c.Consul {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.ConsulEndpoint)
+			data := []string{
+				i,
+				e.ConsulEndpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
@@ -41,10 +65,21 @@ var listNomadCmd = &cobra.Command{
 	Example: `target nomad list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Nomad               ##\n########################################")
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+
 		for i, e := range c.Nomad {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.NomadEndpoint)
+			data := []string{
+				i,
+				e.NomadEndpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
@@ -55,10 +90,21 @@ var listBoundaryCmd = &cobra.Command{
 	Example: `target boundary list`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fmt.Println("########################################\n##                Boundary               ##\n########################################")
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+			"Endpoint",
+		})
+
 		for i, e := range c.Boundary {
-			fmt.Printf("%s:\n  Endpoint: %s\n", i, e.Endpoint)
+			data := []string{
+				i,
+				e.Endpoint,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
 
@@ -68,10 +114,18 @@ var listTerraformCmd = &cobra.Command{
 	Long:    `list all context profiles for Vault using the list command`,
 	Example: `target terraform list`,
 	Run: func(cmd *cobra.Command, args []string) {
+		table := tablewriter.NewWriter(os.Stdout)
+		table.SetBorders(tablewriter.Border{Left: true, Top: true, Right: true, Bottom: true})
+		table.SetHeader([]string{
+			"Profile Name",
+		})
 
-		fmt.Println("########################################\n##              Terraform             ##\n########################################")
 		for i := range c.Terraform {
-			fmt.Printf("%s\n", i)
+			data := []string{
+				i,
+			}
+			table.Append(data)
 		}
+		table.Render()
 	},
 }
