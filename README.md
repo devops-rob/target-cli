@@ -135,7 +135,7 @@ target vault create staging \
   --cacert "your CA cert" \
   --cert "your cert" \
   --key "your key" \
-  --skip-verify true \
+  --skip-verify false \
   --cli-no-colour true \
   --client-timeout "60s" \
   --format "json"
@@ -149,7 +149,7 @@ target vault create staging \
   --cacert "your new CA cert" \
   --cert "your cert" \
   --key "your key" \
-  --skip-verify true \
+  --skip-verify false \
   --format "json"
 ```
 
