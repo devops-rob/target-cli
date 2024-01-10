@@ -3,9 +3,10 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"github.com/spf13/cobra"
 	"log"
 	"strings"
+
+	"github.com/spf13/cobra"
 )
 
 // selectVaultCmd represents the switch command for Vault
