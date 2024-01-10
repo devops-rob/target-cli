@@ -2,8 +2,7 @@
 
 [![goreleaser](https://github.com/devops-rob/target-cli/actions/workflows/release.yaml/badge.svg)](https://github.com/devops-rob/target-cli/actions/workflows/release.yaml)
 
-A CLI tool to manage context profiles for HashiCorp products.  This allows you to save connection and configuration details, which would otherwise be set using Environment Variables into context profiles and gives the ability to switch between different profiles as required and set default context profiles.
-
+**Target CLI** is a tool designed for developers using HashiCorp products across multiple environments such as development, testing, and production. It eliminates the tedious task of manually setting and unsetting environment variables for each environment. With Target CLI, you can easily store and switch between different [context profiles](#what-is-a-context-profile), streamlining your workflow.
 
 ### Installation
 
