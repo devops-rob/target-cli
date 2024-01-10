@@ -69,7 +69,7 @@ Target CLI allows engineers to set default context profiles that are automatical
 
 For example, to configure Target CLI for zsh, we need to point the CLI at our `zshrc file`. For most users, this will be located at `~/.zshrc`.
 
-To configure Target CLI for this shell type, run the following command
+To configure Target CLI for this shell type, run the following command:
 
 ```shell
 target configure --path "~/.zshrc"
@@ -79,7 +79,7 @@ This will write a small helper script to the file that will come into effect whe
 
 ### Terraform
 
-This is designed to store sets of terraform variables into profiles to allow for easy switching. 
+This is designed to store sets of Terraform variables into profiles to allow for easy switching. 
 
 #### Example Use case
 
@@ -89,7 +89,7 @@ Let's say there are three environments, dev, test, and prod. Each environment is
 - `test` has resource names prefixed with `test-`
 - `prod` has resource names prefixed with `prod-`
 
-To configure a set of variables for each environment, we can set up a dev context profile where the variable values are set accordingly, and do the same for test and prod context profiles. This means to deploy to a specific environment, an operator can switch context before applying their terraform code.
+To configure a set of variables for each environment, we can set up a `dev` context profile where the variable values are set accordingly, and do the same for `test` and `prod` context profiles. This means to deploy to a specific environment, an operator can switch context before applying their Terraform code.
 
 **Create Example**
 
@@ -100,7 +100,7 @@ target terraform create dev \
   --var "ec2_instance_name=dev-droid-vm"
 ```
 
-This will create a context profile named `dev` with 3 terraform variables, `aws_region`, `vpc_name`, and `ec2_instance_name`
+This will create a context profile named `dev` with 3 Terraform variables, `aws_region`, `vpc_name`, and `ec2_instance_name`
 
 **Update Example**
 
@@ -111,7 +111,7 @@ target terraform update example \
   --var "ec2_instance_name=dev-starship-vm"
 ```
 
-This will update the values of the `dev` context profile created in the previous step
+This will update the values of the `dev` context profile created in the previous step.
 
 **Delete Example**
 
@@ -119,11 +119,13 @@ This will update the values of the `dev` context profile created in the previous
 target terraform delete dev
 ```
 
-This will delete the context profile named `dev`
+This will delete the context profile named `dev`.
 
 ### Vault, Consul, Nomad and Boundary
 
-Each of these tool sub commands work in the same way using the available flags for each tool specific argument. Below are some examples using Vault
+Each of these tool's subcommands work in the same way using the available flags for each tool specific argument. 
+
+Below are some examples using the `vault` subcommand:
 
 **Create Example**
 
@@ -165,26 +167,26 @@ target vault list
 
 ### Setting Default Context Profiles
 
-Setting the default or changing the default context profile for a tool can be done with the `set-default` sub command. 
+To set or change the default context profile for a tool, use the `set-default` subcommand:
 
 ```shell
 target vault set-default staging
 ```
 
-Once a default has been set, a new shell will need to be launch in order for the changes to take effect. All new shell session swill spawn with your defaults as set.
+After setting a default, you'll need to start a new shell session for the changes to take effect. This is because the environment variables in the current shell session won't automatically update. In all new shell sessions, the environment variables will be set according to your defaults.
 
 ### Switching Context profiles
 
-This can be done using the `select` sub command:
+To switch between different context profiles, use the `select` subcommand as shown below:
 
 ```shell
 target vault select dev
 ```
 
-This will print all `export` commands for the selected context profile. 
-
-In order for this to take effect in the current shell session, the above command will need to be wrapped in an `eval` command:
+This subcommand prints all `export` commands for the selected context profile (`dev` in this case). To apply these `export` commands to your current shell session, wrap the `select` subcommand in an `eval` command like so:
 
 ```shell
 eval $(target vault select dev)
 ```
+
+The `eval` command executes the `export` commands, setting the environment variables for the selected context profile in your current shell session.
