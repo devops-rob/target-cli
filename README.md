@@ -55,14 +55,13 @@ This can then be used with the `eval` command to set these environment variables
 eval $(target vault select prod)
 ```
 
-### Current Supported Tools
 ### Supported Tools
 
-- Terraform
-- Vault
-- Boundary
-- Consul
-- Nomad
+- [Terraform](#terraform)
+- [Vault](#vault-consul-nomad-and-boundary)
+- [Boundary](#vault-consul-nomad-and-boundary)
+- [Consul](#vault-consul-nomad-and-boundary)
+- [Nomad](#vault-consul-nomad-and-boundary)
 
 ### Configuring Target CLI For Your Shell
 
