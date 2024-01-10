@@ -30,174 +30,101 @@ var selectVaultCmd = &cobra.Command{
 
 		context := c.Vault[args[0]]
 
-		var exportCommandStr []string
+		exportCommands := []string{}
 
-		var shellCommandEndpoint string
-		endpoint := context.Endpoint
-		if endpoint != "" {
-			shellCommandEndpoint = fmt.Sprintf("export VAULT_ADDR=%s", endpoint)
-			exportCommandStr = append(exportCommandStr, shellCommandEndpoint)
+		if context.Endpoint != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_ADDR=%s", context.Endpoint))
 		}
 
-		var shellCommandToken string
-		token := context.Token
-		if token != "" {
-			shellCommandToken = fmt.Sprintf("export VAULT_TOKEN=%s", token)
-			exportCommandStr = append(exportCommandStr, shellCommandToken)
+		if context.Token != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_TOKEN=%s", context.Token))
 		}
 
-		var shellCommandNamespace string
-		namespace := context.Namespace
-		if namespace != "" {
-			shellCommandNamespace = fmt.Sprintf("export VAULT_NAMESPACE=%s", namespace)
-			exportCommandStr = append(exportCommandStr, shellCommandNamespace)
-
+		if context.Namespace != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_NAMESPACE=%s", context.Namespace))
 		}
 
-		var shellCommandCaCert string
-		caCert := context.CaCert
-		if caCert != "" {
-			shellCommandCaCert = fmt.Sprintf("export VAULT_CACERT=%s", caCert)
-			exportCommandStr = append(exportCommandStr, shellCommandCaCert)
+		if context.CaCert != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CACERT=%s", context.CaCert))
 		}
 
-		var shellCommandCert string
-		cert := context.Cert
-		if cert != "" {
-			shellCommandCert = fmt.Sprintf("export VAULT_CLIENT_CERT=%s", cert)
-			exportCommandStr = append(exportCommandStr, shellCommandCert)
+		if context.Cert != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CLIENT_CERT=%s", context.Cert))
 		}
 
-		var shellCommandCaPath string
-		caPath := context.CaPath
-		if caPath != "" {
-			shellCommandCaPath = fmt.Sprintf("export VAULT_CAPATH=%s", caPath)
-			exportCommandStr = append(exportCommandStr, shellCommandCaPath)
+		if context.CaPath != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CAPATH=%s", context.CaPath))
 		}
 
-		var shellCommandKey string
-		key := context.Key
-		if key != "" {
-			shellCommandKey = fmt.Sprintf("export VAULT_CLIENT_KEY=%s", key)
-			exportCommandStr = append(exportCommandStr, shellCommandKey)
+		if context.Key != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CLIENT_KEY=%s", context.Key))
 		}
 
-		var shellCommandFormat string
-		format := context.Format
-		if format != "" {
-			shellCommandFormat = fmt.Sprintf("export VAULT_FORMAT=%s", format)
-			exportCommandStr = append(exportCommandStr, shellCommandFormat)
+		if context.Format != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_FORMAT=%s", context.Format))
 		}
 
-		// from here
-
-		var shellCommandSkipVerify string
-		skipVerify := context.SkipVerify
-		if skipVerify != "" {
-			shellCommandSkipVerify = fmt.Sprintf("export VAULT_SKIP_VERIFY=%s", skipVerify)
-			exportCommandStr = append(exportCommandStr, shellCommandSkipVerify)
+		if context.SkipVerify != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_SKIP_VERIFY=%s", context.SkipVerify))
 		}
 
-		var shellClientTimeout string
-		timeout := context.ClientTimeout
-		if timeout != "" {
-			shellClientTimeout = fmt.Sprintf("export VAULT_CLIENT_TIMEOUT=%s", timeout)
-			exportCommandStr = append(exportCommandStr, shellClientTimeout)
+		if context.ClientTimeout != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CLIENT_TIMEOUT=%s", context.ClientTimeout))
 		}
 
-		var shellClusterAddr string
-		clusterAddr := context.ClusterAddr
-		if clusterAddr != "" {
-			shellClusterAddr = fmt.Sprintf("export VAULT_CLUSTER_ADDR=%s", clusterAddr)
-			exportCommandStr = append(exportCommandStr, shellClusterAddr)
+		if context.ClusterAddr != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CLUSTER_ADDR=%s", context.ClusterAddr))
 		}
 
-		var shellCommandLicense string
-		license := context.License
-		if license != "" {
-			shellCommandLicense = fmt.Sprintf("export VAULT_LICENSE=%s", license)
-			exportCommandStr = append(exportCommandStr, shellCommandLicense)
+		if context.License != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_LICENSE=%s", context.License))
 		}
 
-		var shellCommandLicensePath string
-		licensePath := context.LicensePath
-		if licensePath != "" {
-			shellCommandLicensePath = fmt.Sprintf("export VAULT_LICENSE_PATH=%s", licensePath)
-			exportCommandStr = append(exportCommandStr, shellCommandLicensePath)
+		if context.LicensePath != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_LICENSE_PATH=%s", context.LicensePath))
 		}
 
-		var shellCommandLogLevel string
-		logLevel := context.LogLevel
-		if logLevel != "" {
-			shellCommandLogLevel = fmt.Sprintf("export VAULT_LOG_LEVEL=%s", logLevel)
-			exportCommandStr = append(exportCommandStr, shellCommandLogLevel)
+		if context.LogLevel != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_LOG_LEVEL=%s", context.LogLevel))
 		}
 
-		var shellCommandMaxRetries string
-		maxRetries := context.MaxRetries
-		if maxRetries != "" {
-			shellCommandMaxRetries = fmt.Sprintf("export VAULT_MAX_RETRIES=%s", maxRetries)
-			exportCommandStr = append(exportCommandStr, shellCommandMaxRetries)
+		if context.MaxRetries != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_MAX_RETRIES=%s", context.MaxRetries))
 		}
 
-		var shellCommandRedirectAddr string
-		redirectAddr := context.RedirectAddr
-		if redirectAddr != "" {
-			shellCommandRedirectAddr = fmt.Sprintf("export VAULT_REDIRECT_ADDR=%s", redirectAddr)
-			exportCommandStr = append(exportCommandStr, shellCommandRedirectAddr)
+		if context.RedirectAddr != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_REDIRECT_ADDR=%s", context.RedirectAddr))
 		}
 
-		var shellCommandServerName string
-		serverName := context.TlsServerName
-		if serverName != "" {
-			shellCommandServerName = fmt.Sprintf("export VAULT_TLS_SERVER_NAME=%s", serverName)
-			exportCommandStr = append(exportCommandStr, shellCommandServerName)
+		if context.TlsServerName != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_TLS_SERVER_NAME=%s", context.TlsServerName))
 		}
 
-		var shellCommandCliNoColour string
-		cliNoColour := context.CliNoColour
-		if cliNoColour != "" {
-			shellCommandCliNoColour = fmt.Sprintf("export VAULT_CLI_NO_COLOR=%s", cliNoColour)
-			exportCommandStr = append(exportCommandStr, shellCommandCliNoColour)
+		if context.CliNoColour != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_CLI_NO_COLOR=%s", context.CliNoColour))
 		}
 
-		var shellCommandRateLimit string
-		rateLimit := context.RateLimit
-		if rateLimit != "" {
-			shellCommandRateLimit = fmt.Sprintf("export VAULT_RATE_LIMIT=%s", rateLimit)
-			exportCommandStr = append(exportCommandStr, shellCommandRateLimit)
+		if context.RateLimit != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_RATE_LIMIT=%s", context.RateLimit))
 		}
 
-		var shellCommandSvrLookup string
-		svrLookup := context.SvrLookup
-		if svrLookup != "" {
-			shellCommandSvrLookup = fmt.Sprintf("export VAULT_SRV_LOOKUP=%s", svrLookup)
-			exportCommandStr = append(exportCommandStr, shellCommandSvrLookup)
+		if context.SvrLookup != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_SVR_LOOKUP=%s", context.SvrLookup))
 		}
 
-		var shellCommandMfa string
-		mfa := context.Mfa
-		if mfa != "" {
-			shellCommandMfa = fmt.Sprintf("export VAULT_MFA=%s", mfa)
-			exportCommandStr = append(exportCommandStr, shellCommandMfa)
+		if context.Mfa != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_MFA=%s", context.Mfa))
 		}
 
-		var shellCommandHttpProxy string
-		httpProxy := context.HttpProxy
-		if httpProxy != "" {
-			shellCommandHttpProxy = fmt.Sprintf("export VAULT_HTTP_PROXY=%s", httpProxy)
-			exportCommandStr = append(exportCommandStr, shellCommandHttpProxy)
+		if context.HttpProxy != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_HTTP_PROXY=%s", context.HttpProxy))
 		}
 
-		var shellCommandDisableRedirects string
-		disableRedirects := context.DisableRedirects
-		if disableRedirects != "" {
-			shellCommandDisableRedirects = fmt.Sprintf("export VAULT_DISABLE_REDIRECTS=%s", disableRedirects)
-			exportCommandStr = append(exportCommandStr, shellCommandDisableRedirects)
+		if context.DisableRedirects != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export VAULT_DISABLE_REDIRECTS=%s", context.DisableRedirects))
 		}
 
-		commandStr := strings.Join(exportCommandStr, "; ")
-		fmt.Println(commandStr)
+		fmt.Println(strings.Join(exportCommands, "; "))
 	},
 }
 
