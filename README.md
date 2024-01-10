@@ -21,7 +21,7 @@ curl https://raw.githubusercontent.com/devops-rob/target-cli/main/install.sh | b
 
 **Releases**
 
-Binaries can be downloaded for the releases page.
+Binaries can be downloaded from the releases page:
 
 [https://github.com/devops-rob/target-cli/releases](https://github.com/devops-rob/target-cli/releases)
 
