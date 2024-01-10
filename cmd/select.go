@@ -206,67 +206,41 @@ var selectConsulCmd = &cobra.Command{
 
 		context := c.Consul[args[0]]
 
-		var exportCommandStr []string
+		exportCommandStr := []string{}
 
-		var shellCommandEndpoint string
-		endpoint := context.ConsulEndpoint
-		if endpoint != "" {
-			shellCommandEndpoint = fmt.Sprintf("export CONSUL_HTTP_ADDR=%s", endpoint)
-			exportCommandStr = append(exportCommandStr, shellCommandEndpoint)
+		if context.ConsulEndpoint != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_HTTP_ADDR=%s", context.ConsulEndpoint))
 		}
 
-		var shellCommandToken string
-		token := context.ConsulToken
-		if token != "" {
-			shellCommandToken = fmt.Sprintf("export CONSUL_HTTP_TOKEN=%s", token)
-			exportCommandStr = append(exportCommandStr, shellCommandToken)
+		if context.ConsulToken != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_HTTP_TOKEN=%s", context.ConsulToken))
 		}
 
-		var shellCommandTokenFile string
-		tokenFile := context.ConsulTokenFile
-		if tokenFile != "" {
-			shellCommandTokenFile = fmt.Sprintf("export CONSUL_HTTP_TOKEN_FILE=%s", tokenFile)
-			exportCommandStr = append(exportCommandStr, shellCommandTokenFile)
-
+		if context.ConsulTokenFile != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_HTTP_TOKEN_FILE=%s", context.ConsulTokenFile))
 		}
 
-		var shellCommandCaCert string
-		caCert := context.ConsulCaCert
-		if caCert != "" {
-			shellCommandCaCert = fmt.Sprintf("export CONSUL_CACERT=%s", caCert)
-			exportCommandStr = append(exportCommandStr, shellCommandCaCert)
+		if context.ConsulCaCert != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_CACERT=%s", context.ConsulCaCert))
 		}
 
-		var shellCommandCert string
-		cert := context.ConsulCert
-		if cert != "" {
-			shellCommandCert = fmt.Sprintf("export CONSUL_CLIENT_CERT=%s", cert)
-			exportCommandStr = append(exportCommandStr, shellCommandCert)
+		if context.ConsulCert != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_CLIENT_CERT=%s", context.ConsulCert))
 		}
 
-		var shellCommandCaPath string
-		caPath := context.ConsulCaPath
-		if caPath != "" {
-			shellCommandCaPath = fmt.Sprintf("export CONSUL_CAPATH=%s", caPath)
-			exportCommandStr = append(exportCommandStr, shellCommandCaPath)
+		if context.ConsulCaPath != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_CAPATH=%s", context.ConsulCaPath))
 		}
 
-		var shellCommandKey string
-		key := context.ConsulKey
-		if key != "" {
-			shellCommandKey = fmt.Sprintf("export CONSUL_CLIENT_KEY=%s", key)
-			exportCommandStr = append(exportCommandStr, shellCommandKey)
+		if context.ConsulKey != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_CLIENT_KEY=%s", context.ConsulKey))
 		}
 
-		var shellCommandNameSpace string
-		namespace := context.ConsulNamespace
-		if namespace != "" {
-			shellCommandNameSpace = fmt.Sprintf("export CONSUL_NAMESPACE=%s", namespace)
-			exportCommandStr = append(exportCommandStr, shellCommandNameSpace)
+		if context.ConsulNamespace != "" {
+			exportCommandStr = append(exportCommandStr, fmt.Sprintf("export CONSUL_NAMESPACE=%s", context.ConsulNamespace))
 		}
 
-		commandStr := strings.Join(exportCommandStr, "; ")
-		fmt.Println(commandStr)
+		fmt.Println(strings.Join(exportCommandStr, "; "))
 	},
 }
 
