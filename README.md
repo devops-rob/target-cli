@@ -33,8 +33,23 @@ Target simplifies this process. It allows you to store the connection details fo
 
 ### What Is a Context Profile?
 
-A context profile is a grouping of configuration parameters required to perform an action against one of the supported HashiCorp Tools. A vault example is a context profile made of an `endpoint` pointing to `https://prod-vault:8200`, a `namespace` pointing to `admin/target`, and a `token` pointing to `s.12345790asdfghjklpoi`. This would render the following commands `export VAULT_ADDR=https://prod-vault:8200; export VAULT_NAMESPACE=admin/target; export VAULT_TOKEN=s.12345790asdfghjklpoi`. This can then be used with the `eval` command to set these environment variables in the current shell session.
-### Example usage
+A **context profile** is a group of configuration parameters used to perform an action against one of the supported HashiCorp products.
+
+For example, a Vault context profile is made of:
+
+- `endpoint` set to `https://prod-vault:8200`
+- `namespace` set to `admin/target`
+- `token` set to `s.12345790asdfghjklpoi`
+
+Which is translated to the following `export` commands:
+
+```shell
+export VAULT_ADDR=https://prod-vault:8200; export VAULT_NAMESPACE=admin/target; export VAULT_TOKEN=s.12345790asdfghjklpoi
+```
+
+This can then be used with the `eval` command to set these environment variables in the current shell's session.
+
+### Example Usage
 
 ```shell
 eval $(target vault select prod)
