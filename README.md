@@ -25,11 +25,11 @@ Binaries can be downloaded from the releases page:
 
 [https://github.com/devops-rob/target-cli/releases](https://github.com/devops-rob/target-cli/releases)
 
-### Example use case
+### Example Use Case
 
-There are two vault clusters, one for Dev (<http://dev-vault:8200>) and one for Prod (<https://prod-vault:8200>).
+Two Vault clusters are available for development (`http://dev-vault:8200`) and production (`https://prod-vault:8200`). By default, local Vault CLI commands attempt to connect to `https://localhost:8200`. Connecting to a different cluster requires remembering and setting the appropriate Vault environment variable each time.
 
-Running Vault CLI commands locally will by default attempt to connect to <https://localhost:8200>.  To connect to another cluster, you need to know and remember the connection details and set a Vault environment variable. When you want to switch to a different cluster, you again need to set the environment variable.  Target allows you to save multiple connection details into context profiles and easily switch between them as you require.
+Target simplifies this process. It allows you to store the connection details for multiple clusters in [context profiles](#what-is-a-context-profile). Switching between clusters is as easy as selecting the desired profile.
 
 ### What Is a Context Profile?
 
@@ -41,6 +41,7 @@ eval $(target vault select prod)
 ```
 
 ### Current Supported Tools
+### Supported Tools
 
 - Terraform
 - Vault
