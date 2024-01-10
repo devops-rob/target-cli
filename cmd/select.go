@@ -264,151 +264,92 @@ var selectBoundaryCmd = &cobra.Command{
 
 		context := c.Boundary[args[0]]
 
-		var exportCommandStr []string
+		exportCommands := []string{}
 
-		var shellCommandEndpoint string
-		endpoint := context.Endpoint
-		if endpoint != "" {
-			shellCommandEndpoint = fmt.Sprintf("export BOUNDARY_ADDR=%s", endpoint)
-			exportCommandStr = append(exportCommandStr, shellCommandEndpoint)
+		if context.Endpoint != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_ADDR=%s", context.Endpoint))
 		}
 
-		var shellCommandToken string
-		token := context.Token
-		if token != "" {
-			shellCommandToken = fmt.Sprintf("export NOMAD_TOKEN=%s", token) // TODO - Double check if this is needed
-			exportCommandStr = append(exportCommandStr, shellCommandToken)
+		// NOTE: users can use either a "BOUNARY_TOKEN" (for a file on disk) or
+		// a "BOUNDARY_TOKEN_NAME" (for platform-specific OS credential store).
+
+		if context.Token != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_TOKEN=%s", context.Token))
 		}
 
-		var shellCommandTokenName string
-		tokenName := context.TokenName
-		if tokenName != "" {
-			shellCommandTokenName = fmt.Sprintf("export BOUNDARY_TOKEN_NAME=%s", tokenName)
-			exportCommandStr = append(exportCommandStr, shellCommandTokenName)
-
+		if context.TokenName != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_TOKEN_NAME=%s", context.TokenName))
 		}
 
-		var shellCommandCaCert string
-		caCert := context.CaCert
-		if caCert != "" {
-			shellCommandCaCert = fmt.Sprintf("export BOUNDARY_CACERT=%s", caCert)
-			exportCommandStr = append(exportCommandStr, shellCommandCaCert)
+		if context.CaCert != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CACERT=%s", context.CaCert))
 		}
 
-		var shellCommandCert string
-		cert := context.Cert
-		if cert != "" {
-			shellCommandCert = fmt.Sprintf("export BOUNDARY_CLIENT_CERT=%s", cert)
-			exportCommandStr = append(exportCommandStr, shellCommandCert)
+		if context.Cert != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CLIENT_CERT=%s", context.Cert))
 		}
 
-		var shellCommandCaPath string
-		caPath := context.CaPath
-		if caPath != "" {
-			shellCommandCaPath = fmt.Sprintf("export BOUNDARY_CAPATH=%s", caPath)
-			exportCommandStr = append(exportCommandStr, shellCommandCaPath)
+		if context.CaPath != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CAPATH=%s", context.CaPath))
 		}
 
-		var shellCommandKey string
-		key := context.Key
-		if key != "" {
-			shellCommandKey = fmt.Sprintf("export BOUNDARY_CLIENT_KEY=%s", key)
-			exportCommandStr = append(exportCommandStr, shellCommandKey)
+		if context.Key != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CLIENT_KEY=%s", context.Key))
 		}
 
-		var shellCommandTlsInsecure string
-		tlsInsecure := context.TlsInsecure
-		if tlsInsecure != "" {
-			shellCommandTlsInsecure = fmt.Sprintf("export BOUNDARY_TLS_INSECURE=%s", tlsInsecure)
-			exportCommandStr = append(exportCommandStr, shellCommandTlsInsecure)
+		if context.TlsInsecure != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_TLS_INSECURE=%s", context.TlsInsecure))
 		}
 
-		var shellCommandTlsServerName string
-		tlsServerName := context.TlsServerName
-		if tlsServerName != "" {
-			shellCommandTlsServerName = fmt.Sprintf("export BOUNDARY_TLS_SERVER_NAME=%s", tlsServerName)
-			exportCommandStr = append(exportCommandStr, shellCommandTlsServerName)
+		if context.TlsServerName != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_TLS_SERVER_NAME=%s", context.TlsServerName))
 		}
 
-		var shellCommandRecoveryConfig string
-		recoveryConfig := context.RecoveryConfig
-		if recoveryConfig != "" {
-			shellCommandRecoveryConfig = fmt.Sprintf("export BOUNDARY_RECOVERY_CONFIG=%s", recoveryConfig)
-			exportCommandStr = append(exportCommandStr, shellCommandRecoveryConfig)
+		if context.RecoveryConfig != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_RECOVERY_CONFIG=%s", context.RecoveryConfig))
 		}
 
-		var shellCommandConnectAuthZToken string
-		connectAuthZToken := context.ConnectAuthZToken
-		if connectAuthZToken != "" {
-			shellCommandConnectAuthZToken = fmt.Sprintf("export BOUNDARY_CONNECT_AUTHZ_TOKEN=%s", connectAuthZToken)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectAuthZToken)
+		if context.ConnectAuthZToken != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CONNECT_AUTHZ_TOKEN=%s", context.ConnectAuthZToken))
 		}
 
-		var shellCommandConnectExec string
-		connectExec := context.ConnectExec
-		if connectExec != "" {
-			shellCommandConnectExec = fmt.Sprintf("export BOUNDARY_CONNECT_EXEC=%s", connectExec)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectExec)
+		if context.ConnectExec != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CONNECT_EXEC=%s", context.ConnectExec))
 		}
 
-		var shellCommandConnectListenAddr string
-		connectListenAddr := context.ConnectListenAddr
-		if connectListenAddr != "" {
-			shellCommandConnectListenAddr = fmt.Sprintf("export BOUNDARY_CONNECT_LISTEN_ADDR=%s", connectListenAddr)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectListenAddr)
+		if context.ConnectListenAddr != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CONNECT_LISTEN_ADDR=%s", context.ConnectListenAddr))
 		}
 
-		var shellCommandConnectListenPort string
-		connectListenPort := context.ConnectListenPort
-		if connectListenPort != "" {
-			shellCommandConnectListenPort = fmt.Sprintf("export BOUNDARY_CONNECT_LISTEN_PORT=%s", connectListenPort)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectListenPort)
+		if context.ConnectListenPort != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CONNECT_LISTEN_PORT=%s", context.ConnectListenPort))
 		}
 
-		var shellCommandConnectTargetScopeId string
-		connectTargetScopeId := context.ConnectTargetScopeId
-		if connectTargetScopeId != "" {
-			shellCommandConnectTargetScopeId = fmt.Sprintf("export BOUNDARY_CONNECT_TARGET_SCOPE_ID=%s", connectTargetScopeId)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectTargetScopeId)
+		if context.ConnectTargetScopeId != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CONNECT_TARGET_SCOPE_ID=%s", context.ConnectTargetScopeId))
 		}
 
-		var shellCommandConnectTargetScopeName string
-		connectTargetScopeName := context.ConnectTargetScopeName
-		if connectTargetScopeName != "" {
-			shellCommandConnectTargetScopeName = fmt.Sprintf("export BOUNDARY_CONNECT_TARGET_SCOPE_NAME=%s", connectTargetScopeName)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectTargetScopeName)
+		if context.ConnectTargetScopeName != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CONNECT_TARGET_SCOPE_NAME=%s", context.ConnectTargetScopeName))
 		}
 
-		var shellCommandConnectAuthMethodId string
-		authMethodId := context.AuthMethodId
-		if authMethodId != "" {
-			shellCommandConnectAuthMethodId = fmt.Sprintf("export BOUNDARY_AUTH_METHOD_ID=%s", authMethodId)
-			exportCommandStr = append(exportCommandStr, shellCommandConnectAuthMethodId)
+		if context.AuthMethodId != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_AUTH_METHOD_ID=%s", context.AuthMethodId))
 		}
 
-		var shellCommandLogLevel string
-		logLevel := context.LogLevel
-		if logLevel != "" {
-			shellCommandLogLevel = fmt.Sprintf("export BOUNDARY_LOG_LEVEL=%s", logLevel)
-			exportCommandStr = append(exportCommandStr, shellCommandLogLevel)
+		if context.LogLevel != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_LOG_LEVEL=%s", context.LogLevel))
 		}
 
-		var shellCommandFormat string
-		format := context.Format
-		if format != "" {
-			shellCommandFormat = fmt.Sprintf("export BOUNDARY_CLI_FORMAT=%s", format)
-			exportCommandStr = append(exportCommandStr, shellCommandFormat)
+		if context.Format != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_CLI_FORMAT=%s", context.Format))
 		}
 
-		var shellCommandScopeId string
-		scopeId := context.ScopeId
-		if scopeId != "" {
-			shellCommandScopeId = fmt.Sprintf("export BOUNDARY_SCOPE_ID=%s", scopeId)
-			exportCommandStr = append(exportCommandStr, shellCommandScopeId)
+		if context.ScopeId != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export BOUNDARY_SCOPE_ID=%s", context.ScopeId))
 		}
 
-		commandStr := strings.Join(exportCommandStr, "; ")
-		fmt.Println(commandStr)
+		fmt.Println(strings.Join(exportCommands, "; "))
 	},
 }
 
