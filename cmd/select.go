@@ -373,14 +373,13 @@ var selectTerraformCmd = &cobra.Command{
 
 		context := c.Terraform[args[0]]
 
-		var exportCommandStr []string
+		exportCommands := []string{}
 
 		for k, v := range context.Vars {
-			command := fmt.Sprintf("export TF_VAR_%s=%s", k, v)
-			exportCommandStr = append(exportCommandStr, command)
+			exportCommands = append(exportCommands, fmt.Sprintf("export TF_VAR_%s=%s", k, v))
 		}
 
-		commandStr := strings.Join(exportCommandStr, "; ")
+		commandStr := strings.Join(exportCommands, "; ")
 		fmt.Println(commandStr)
 	},
 }
