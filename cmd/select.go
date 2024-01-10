@@ -148,67 +148,41 @@ var selectNomadCmd = &cobra.Command{
 
 		context := c.Nomad[args[0]]
 
-		var exportCommandStr []string
+		exportCommands := []string{}
 
-		var shellCommandEndpoint string
-		endpoint := context.NomadEndpoint
-		if endpoint != "" {
-			shellCommandEndpoint = fmt.Sprintf("export NOMAD_ADDR=%s", endpoint)
-			exportCommandStr = append(exportCommandStr, shellCommandEndpoint)
+		if context.NomadEndpoint != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_ADDR=%s", context.NomadEndpoint))
 		}
 
-		var shellCommandToken string
-		token := context.NomadToken
-		if token != "" {
-			shellCommandToken = fmt.Sprintf("export NOMAD_TOKEN=%s", token)
-			exportCommandStr = append(exportCommandStr, shellCommandToken)
+		if context.NomadToken != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_TOKEN=%s", context.NomadToken))
 		}
 
-		var shellCommandNamespace string
-		namespace := context.NomadNamespace
-		if namespace != "" {
-			shellCommandNamespace = fmt.Sprintf("export NOMAD_NAMESPACE=%s", namespace)
-			exportCommandStr = append(exportCommandStr, shellCommandNamespace)
-
+		if context.NomadNamespace != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_NAMESPACE=%s", context.NomadNamespace))
 		}
 
-		var shellCommandCaCert string
-		caCert := context.NomadCaCert
-		if caCert != "" {
-			shellCommandCaCert = fmt.Sprintf("export NOMAD_CACERT=%s", caCert)
-			exportCommandStr = append(exportCommandStr, shellCommandCaCert)
+		if context.NomadCaCert != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_CACERT=%s", context.NomadCaCert))
 		}
 
-		var shellCommandCert string
-		cert := context.NomadCert
-		if cert != "" {
-			shellCommandCert = fmt.Sprintf("export NOMAD_CLIENT_CERT=%s", cert)
-			exportCommandStr = append(exportCommandStr, shellCommandCert)
+		if context.NomadCert != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_CLIENT_CERT=%s", context.NomadCert))
 		}
 
-		var shellCommandCaPath string
-		caPath := context.NomadCaPath
-		if caPath != "" {
-			shellCommandCaPath = fmt.Sprintf("export NOMAD_CAPATH=%s", caPath)
-			exportCommandStr = append(exportCommandStr, shellCommandCaPath)
+		if context.NomadCaPath != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_CAPATH=%s", context.NomadCaPath))
 		}
 
-		var shellCommandKey string
-		key := context.NomadKey
-		if key != "" {
-			shellCommandKey = fmt.Sprintf("export NOMAD_CLIENT_KEY=%s", key)
-			exportCommandStr = append(exportCommandStr, shellCommandKey)
+		if context.NomadKey != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_CLIENT_KEY=%s", context.NomadKey))
 		}
 
-		var shellCommandRegion string
-		region := context.NomadRegion
-		if region != "" {
-			shellCommandRegion = fmt.Sprintf("export NOMAD_REGION=%s", region)
-			exportCommandStr = append(exportCommandStr, shellCommandRegion)
+		if context.NomadRegion != "" {
+			exportCommands = append(exportCommands, fmt.Sprintf("export NOMAD_REGION=%s", context.NomadRegion))
 		}
 
-		commandStr := strings.Join(exportCommandStr, "; ")
-		fmt.Println(commandStr)
+		fmt.Println(strings.Join(exportCommands, "; "))
 	},
 }
 
