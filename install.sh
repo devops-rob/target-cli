@@ -9,11 +9,7 @@ echo "Please note: You may be prompted for your password"
 OS=$(uname)
 ARCH=$(uname -m)
 TARGET_OS="linux"
-TARGET_ARCH="arm64"
-
-if [ "${ARCH}" == "x86_64" ]; then
-  TARGET_ARCH="x86_64"
-fi
+TARGET_ARCH="amd64"
 
 if [ "${ARCH}" == "arm64" ]; then
   TARGET_ARCH="arm64"
