@@ -128,7 +128,7 @@ target vault create staging \
 **Update Example**
 
 ```shell
-target vault create staging \
+target vault update staging \
   --endpoint "https://staging-vault.com:8200" \
   --cacert "your new CA cert" \
   --cert "your cert" \
