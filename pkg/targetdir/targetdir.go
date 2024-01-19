@@ -26,7 +26,7 @@ func TargetHome() string {
 // TargetHomeCreate checks for the target directory
 // and profiles.json file and creates if they don't exist
 func TargetHomeCreate() {
-	var defaultConfig = "{\n\t\"vault\": {},\n\t\"consul\": {},\n\t\"nomad\": {}\n\t\"terraform\": {}\n}"
+	var defaultConfig = "{\n\t\"vault\": {},\n\t\"consul\": {},\n\t\"nomad\": {},\n\t\"terraform\": {}\n}"
 	targetHome := TargetHome()
 	if _, err := os.Stat(targetHome); os.IsNotExist(err) {
 		os.Mkdir(targetHome, 0755)
