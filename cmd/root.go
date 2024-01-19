@@ -3,10 +3,11 @@ package cmd
 import (
 	"fmt"
 	"github.com/devops-rob/target-cli/pkg/targetdir"
-	"github.com/pkg/errors"
-	"github.com/spf13/cobra"
 	"os"
 	"reflect"
+
+	"github.com/devops-rob/target-cli/pkg/targetdir"
+	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/mitchellh/mapstructure"
@@ -192,8 +193,6 @@ func sliceOfMapsToMapHookFunc() mapstructure.DecodeHookFunc {
 }
 
 func initConfig() {
-	var defaultConfig = &Config{}
-
 	// Find home directory.
 	home, err := homedir.Dir()
 	if err != nil {
@@ -206,40 +205,40 @@ func initConfig() {
 	viper.SetConfigName("profiles")
 	viper.SetConfigType("json")
 
-	// Attempt to read the config file
+	// Attempt to read the config file to see if it exists
 	if err := viper.ReadInConfig(); err != nil {
 		var configFileNotFoundError viper.ConfigFileNotFoundError
 		if errors.As(err, &configFileNotFoundError) {
 			// Config file not found, use default configuration
-			c = defaultConfig
+			c = &Config{}
 		}
-	} else {
-		// Config file found and successfully loaded
-		configOption := viper.DecodeHook(mapstructure.ComposeDecodeHookFunc(
-			sliceOfMapsToMapHookFunc(),
-			mapstructure.StringToTimeDurationHookFunc(),
-			mapstructure.StringToSliceHookFunc(","),
-		))
-		if err := viper.Unmarshal(&c, configOption); err != nil {
-			fmt.Println("Error unmarshaling config:", err)
-			os.Exit(1)
-		}
+	}
 
-		if c.Vault == nil {
-			c.Vault = map[string]*Vault{}
-		}
-		if c.Nomad == nil {
-			c.Nomad = map[string]*Nomad{}
-		}
-		if c.Consul == nil {
-			c.Consul = map[string]*Consul{}
-		}
-		if c.Boundary == nil {
-			c.Boundary = map[string]*Boundary{}
-		}
-		if c.Terraform == nil {
-			c.Terraform = map[string]*Terraform{}
-		}
+	// Config file found and successfully loaded
+	configOption := viper.DecodeHook(mapstructure.ComposeDecodeHookFunc(
+		sliceOfMapsToMapHookFunc(),
+		mapstructure.StringToTimeDurationHookFunc(),
+		mapstructure.StringToSliceHookFunc(","),
+	))
+	if err := viper.Unmarshal(&c, configOption); err != nil {
+		fmt.Println("Error unmarshaling config:", err)
+		os.Exit(1)
+	}
+
+	if c.Vault == nil {
+		c.Vault = map[string]*Vault{}
+	}
+	if c.Nomad == nil {
+		c.Nomad = map[string]*Nomad{}
+	}
+	if c.Consul == nil {
+		c.Consul = map[string]*Consul{}
+	}
+	if c.Boundary == nil {
+		c.Boundary = map[string]*Boundary{}
+	}
+	if c.Terraform == nil {
+		c.Terraform = map[string]*Terraform{}
 	}
 
 	// Automatically bind environment variables
